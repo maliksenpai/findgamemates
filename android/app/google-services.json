@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1065743633230",
+    "project_id": "findgamemate",
+    "storage_bucket": "findgamemate.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1065743633230:android:e71779a9b22243371a2c1f",
+        "android_client_info": {
+          "package_name": "com.example.findgamemates"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1065743633230-mil3r0c95c3ejkqtoj94qdat3n86m2vb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBcAZAaPMxqHO3xA20zteZA1R-jqqCa_6E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1065743633230-mil3r0c95c3ejkqtoj94qdat3n86m2vb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
