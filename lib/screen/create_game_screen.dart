@@ -97,8 +97,7 @@ class _CreateGameScreenState extends State<CreateGameScreen> {
                               : "Hata"),
                           value: e,
                         ),
-                      )
-                          .toList(),
+                      ).toList(),
                     ),
                   ),
                   ListTile(
