@@ -43,6 +43,7 @@ dependencies:
   hive_flutter:
   path_provider:
   crypto:
+  convex_bottom_bar:
 
 dev_dependencies:
   flutter_test:

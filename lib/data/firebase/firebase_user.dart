@@ -1,7 +1,8 @@
 import 'dart:math';
-
+import 'package:findgamemates/data/database/user_database.dart';
 import 'package:findgamemates/model/login_request.dart';
 import 'package:findgamemates/model/login_response.dart';
+import 'package:findgamemates/model/app_user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:get/get.dart';
@@ -10,6 +11,7 @@ class FirebaseUser extends GetxService{
 
   late DatabaseReference databaseReference;
   late FirebaseAuth firebaseAuth;
+  UserDatabase userDatabase = Get.put(UserDatabase());
 
   @override
   void onInit() {
@@ -23,6 +25,9 @@ class FirebaseUser extends GetxService{
       UserCredential userCredential = await firebaseAuth.signInWithEmailAndPassword(email: loginRequest.mail, password: loginRequest.passwordHash.toString());
       if(userCredential.user != null){
         if(userCredential.user!.emailVerified){
+          AppUser appUser = AppUser(uid: userCredential.user!.uid, displayName: userCredential.user!.displayName, email: userCredential.user!.email);
+          userDatabase.saveUser(appUser);
+          await saveDatabaseUser(appUser);
           return LoginResponse.successful;
         }else{
           sendVerification(userCredential.user);
@@ -61,5 +66,9 @@ class FirebaseUser extends GetxService{
     await user!.sendEmailVerification();
   }
 
+
+  Future saveDatabaseUser(AppUser appUser) async {
+    databaseReference.child(appUser.uid.toString()).set(appUser.toJson());
+  }
 
 }

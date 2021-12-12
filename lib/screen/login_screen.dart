@@ -1,4 +1,5 @@
 import 'package:findgamemates/data/firebase/firebase_user.dart';
+import 'package:findgamemates/get/user_get.dart';
 import 'package:findgamemates/model/login_request.dart';
 import 'package:findgamemates/model/login_response.dart';
 import 'package:findgamemates/screen/main_screen.dart';
@@ -15,6 +16,8 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+
+  UserGet userGet = Get.put(UserGet());
 
   TextEditingController mailController = TextEditingController();
   TextEditingController passController = TextEditingController();
@@ -123,8 +126,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Future<void> attemptLogin() async{
     if( _formKey.currentState!.validate()){
-      FirebaseUser firebaseUser = Get.put(FirebaseUser());
-      LoginResponse loginResponse = await firebaseUser.loginUser(LoginRequest(mail: mailController.text, passHash: passController.text));
+      LoginResponse loginResponse = await userGet.loginUser(LoginRequest(mail: mailController.text, passHash: passController.text));
       if(loginResponse == LoginResponse.successful){
         Get.offAll(const MainScreen());
       } else if(loginResponse == LoginResponse.userNotFound){
