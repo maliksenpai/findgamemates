@@ -113,7 +113,10 @@ class _CreateGameScreenState extends State<CreateGameScreen> {
                     ),
                   ),
                   ElevatedButton(
-                    child: Text("Oluştur"),
+                    child: Text("Oluştur",style: TextStyle(color: Theme.of(context).scaffoldBackgroundColor),),
+                    style: ElevatedButton.styleFrom(
+                      primary: Theme.of(context).colorScheme.secondary,
+                    ),
                     onPressed: () async {
                       if(titleController.text.isNotEmpty && descController.text.isNotEmpty){
                         //todo: add progress dialog

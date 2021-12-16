@@ -1,3 +1,4 @@
+import 'package:findgamemates/data/database/user_database.dart';
 import 'package:findgamemates/get/initial_bindings.dart';
 import 'package:findgamemates/model/app_user.dart';
 import 'package:findgamemates/screen/games_screen.dart';
@@ -8,6 +9,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+
+import 'data/database/settings_database.dart';
 
 void main() async {
   registerAdapters();
@@ -25,6 +28,7 @@ void registerAdapters(){
 Future initHiveBoxes() async{
   await Hive.initFlutter();
   await Hive.openBox("user");
+  await Hive.openBox("settings");
   return;
 }
 
@@ -33,17 +37,16 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SettingsDatabase settingsDatabase = Get.put(SettingsDatabase());
     return GetMaterialApp(
       title: 'Flutter Demo',
       initialBinding: InitialBindings(),
       routes: {
-        '/games' : (context) => GamesScreen(),
-        '/settings' : (context) => SettingsScreen(),
-        'profile' : (context) => ProfileScreen()
+        '/games' : (context) => const GamesScreen(),
+        '/settings' : (context) => const SettingsScreen(),
+        'profile' : (context) => const ProfileScreen()
       },
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: settingsDatabase.isDarkMode() ? ThemeData.dark() : ThemeData.light(),
       home: const IntroScreen(),
     );
   }

@@ -22,4 +22,8 @@ class UserDatabase extends GetxService{
     userBox.put("loggedInUser", user);
   }
 
+  void deleteUser(){
+    userBox.delete("loggedInUser");
+  }
+
 }

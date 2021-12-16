@@ -71,4 +71,13 @@ class FirebaseUser extends GetxService{
     databaseReference.child(appUser.uid.toString()).set(appUser.toJson());
   }
 
+
+  Future<bool> logoutUser() async{
+    try{
+      await firebaseAuth.signOut();
+      return true;
+    }catch (e){
+      return false;
+    }
+  }
 }

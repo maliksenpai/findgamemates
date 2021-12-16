@@ -41,6 +41,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin{
             TabItem(icon: Icons.home, title: "Ana Ekran"),
             TabItem(icon: Icons.person, title: "Profil"),
           ],
+          backgroundColor: Theme.of(context).primaryColor,
           onTap: (i){
             setState(() {
               tabController.index = i;

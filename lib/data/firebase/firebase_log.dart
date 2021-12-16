@@ -18,7 +18,7 @@ class FirebaseLog extends GetxService{
     User? user = firebaseAuth.currentUser;
     if(user != null){
       String dateTime = DateTime.now().toUtc().toString();
-      String userId = user.uid ?? "Anonymous";
+      String userId = user.uid;
       String logResult = userId + "  -  " + dateTime + "  -  " + log;
       databaseReference.push().set(logResult);
     }

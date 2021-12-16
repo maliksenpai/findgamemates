@@ -22,4 +22,11 @@ class UserGet extends GetxController{
     return result;
   }
 
+  Future<bool> logoutUser() async{
+    bool logout = await firebaseUser.logoutUser();
+    if(logout){
+      userDatabase.deleteUser();
+    }
+    return logout;
+  }
 }

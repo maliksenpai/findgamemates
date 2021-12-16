@@ -35,15 +35,16 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   get:
-  firebase_core:
-  firebase_database:
-  firebase_auth:
+  firebase_core: ^1.10.2
+  firebase_database: ^8.2.0
+  firebase_auth: ^3.3.0
   intl:
   hive:
   hive_flutter:
   path_provider:
   crypto:
   convex_bottom_bar:
+  day_night_switcher:
 
 dev_dependencies:
   flutter_test:

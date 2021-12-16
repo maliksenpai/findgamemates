@@ -38,14 +38,13 @@ class _GamesScreenState extends State<GamesScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
-        children: [
-          const GameScreenFilter(),
-          Expanded(
-              child: const GameScreenList(),)
+        children: const [
+          GameScreenFilter(),
+          Expanded(child: GameScreenList(),)
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
         onPressed: () {
           Get.to(() => const CreateGameScreen());
         },
