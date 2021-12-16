@@ -70,7 +70,7 @@ class _GameScreenFilterState extends State<GameScreenFilter> {
                   child: DropdownButton<GameType?>(
                     isExpanded: true,
                     hint: Text("Oyun türü"),
-                    icon: Icon(Icons.extension),
+                    icon: Icon(Icons.extension,color: Theme.of(context).primaryColor,),
                     value: selectedGameType,
                     onChanged: (GameType? gameType){
                       setState(() {

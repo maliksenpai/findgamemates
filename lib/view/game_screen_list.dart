@@ -49,9 +49,10 @@ class _GameScreenListState extends State<GameScreenList> {
                       children: [
                         Icon(
                           Icons.extension,
+                          color: Theme.of(context).primaryColor,
                           size: 20,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 4,
                         ),
                         Text(
@@ -63,11 +64,11 @@ class _GameScreenListState extends State<GameScreenList> {
                     Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Icon(
+                        const Icon(
                           Icons.location_on,
                           size: 20,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 4,
                         ),
                         Text(
@@ -79,7 +80,7 @@ class _GameScreenListState extends State<GameScreenList> {
                   ],
                 ),
                 onTap: () {
-                  Get.to(() => GameDetailScreen());
+                  Get.to(() => GameDetailScreen(gamePost: post, key: UniqueKey(),));
                 },
               ),
             ),

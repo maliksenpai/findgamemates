@@ -66,6 +66,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   primary: Colors.redAccent
                 ),
                 onPressed: () async {
+                  //todo:refactor dialog like game detail input
                     Get.dialog(
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,

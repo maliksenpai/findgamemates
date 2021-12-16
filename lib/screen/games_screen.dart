@@ -18,19 +18,10 @@ class GamesScreen extends StatefulWidget {
 }
 
 class _GamesScreenState extends State<GamesScreen> {
-  late List<GamePost> list = [];
   GameGet gameGet = Get.put(GameGet());
 
   @override
   void initState() {
-    if (kDebugMode) {
-      //todo: mock data
-      list.add(GamePost(id: "asd", createrId: "asd", createTime: "12312313", title: "asd", desc: "sdfs", gameType: GameType.frp, province: "Ankara", active: true));
-      list.add(GamePost(id: "asd", createrId: "asd", createTime: "12312313", title: "asd", desc: "sdfs", gameType: GameType.frp, province: "Ankara", active: true));
-      list.add(GamePost(id: "asd", createrId: "asd", createTime: "12312313", title: "asd", desc: "sdfs", gameType: GameType.frp, province: "Ankara", active: true));
-      list.add(GamePost(id: "asd", createrId: "asd", createTime: "12312313", title: "asd", desc: "sdfs", gameType: GameType.frp, province: "Ankara", active: true));
-      list.add(GamePost(id: "asd", createrId: "asd", createTime: "12312313", title: "asd", desc: "sdfs", gameType: GameType.frp, province: "Ankara", active: true));
-    }
     super.initState();
   }
 

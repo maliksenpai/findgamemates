@@ -2,6 +2,7 @@ import 'package:findgamemates/data/database/user_database.dart';
 import 'package:findgamemates/data/firebase/firebase_game.dart';
 import 'package:findgamemates/data/firebase/firebase_log.dart';
 import 'package:findgamemates/model/database_response.dart';
+import 'package:findgamemates/model/game_comment.dart';
 import 'package:findgamemates/model/game_post.dart';
 import 'package:findgamemates/model/game_types.dart';
 import 'package:findgamemates/utils/log_utils.dart';
@@ -13,6 +14,8 @@ class GameGet extends GetxController {
   UserDatabase userDatabase = Get.put(UserDatabase());
   Rx<List<GamePost>> postList = Rx([]);
   List<GamePost> notFilteredList = [];
+
+  Rx<List<GameComment>?> currComments = Rx(null);
 
   @override
   void onInit() async {
@@ -47,5 +50,21 @@ class GameGet extends GetxController {
       firebaseLog.writeLog(databaseResponse.data.id + "  " + LogUtils.createdGame);
     }
     return databaseResponse.result;
+  }
+
+  Future getListComment(String postId) async {
+    currComments.value = await firebaseGame.getComments(postId);
+    currComments.refresh();
+  }
+
+  Future<GameComment?> addComment(String postId, String comment) async{
+    try{
+      GameComment gameComment = await firebaseGame.addComment(postId, comment);
+      currComments.value!.add(gameComment);
+      currComments.refresh();
+      return gameComment;
+    }catch(e){
+      return null;
+    }
   }
 }
