@@ -2,6 +2,7 @@ import 'package:day_night_switcher/day_night_switcher.dart';
 import 'package:findgamemates/data/database/settings_database.dart';
 import 'package:findgamemates/get/user_get.dart';
 import 'package:findgamemates/screen/login_screen.dart';
+import 'package:findgamemates/theme_data.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -48,7 +49,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               onStateChanged: (bool bool){
                 setState(() {
                   settingsDatabase.changeTheme(bool);
-                  Get.changeTheme(bool ? ThemeData.dark() : ThemeData.light());
+                  Get.changeTheme(bool ? CustomThemeData().darkTheme : CustomThemeData().lightTheme);
                 });
               },
             ),
@@ -61,9 +62,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 child: const Padding(
                   padding: EdgeInsets.all(8.0),
                   child: Text("Çıkış Yap"),
-                ),
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.redAccent
                 ),
                 onPressed: () async {
                   //todo:refactor dialog like game detail input

@@ -42,6 +42,7 @@ class _GameDetailCommentsState extends State<GameDetailComments> {
           return Container();
         } else {
           return ListView.builder(
+            physics: NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             itemCount: gameGet.currComments.value!.length,
             itemBuilder: (context, index) {

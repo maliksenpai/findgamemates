@@ -2,6 +2,7 @@ import 'package:findgamemates/get/game_get.dart';
 import 'package:findgamemates/model/game_post.dart';
 import 'package:findgamemates/model/game_types.dart';
 import 'package:findgamemates/screen/game_detail_screen.dart';
+import 'package:findgamemates/theme_data.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -32,6 +33,7 @@ class _GameScreenListState extends State<GameScreenList> {
           return Padding(
             padding: const EdgeInsets.all(8),
             child: Card(
+              color: CustomThemeData.cardColor,
               elevation: 8,
               child: ListTile(
                 title: Text(post.title),
@@ -49,7 +51,7 @@ class _GameScreenListState extends State<GameScreenList> {
                       children: [
                         Icon(
                           Icons.extension,
-                          color: Theme.of(context).primaryColor,
+                          color: CustomThemeData.primaryColor,
                           size: 20,
                         ),
                         const SizedBox(
@@ -64,9 +66,10 @@ class _GameScreenListState extends State<GameScreenList> {
                     Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        const Icon(
+                        Icon(
                           Icons.location_on,
                           size: 20,
+                          color: CustomThemeData.accentColor,
                         ),
                         const SizedBox(
                           width: 4,

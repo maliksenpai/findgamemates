@@ -1,5 +1,6 @@
 import 'package:findgamemates/get/game_get.dart';
 import 'package:findgamemates/model/game_types.dart';
+import 'package:findgamemates/theme_data.dart';
 import 'package:findgamemates/utils/utils_data.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -53,7 +54,7 @@ class _GameScreenFilterState extends State<GameScreenFilter> {
                 Expanded(
                   child: DropdownButton<String?>(
                     hint: Text("Oyun lokasyonu"),
-                    icon: Icon(Icons.location_on),
+                    icon: Icon(Icons.location_on, color: CustomThemeData.accentColor,),
                     isExpanded: true,
                     value: selectedGameProvince,
                     onChanged: (String? gameProvince){
@@ -70,9 +71,12 @@ class _GameScreenFilterState extends State<GameScreenFilter> {
                   child: DropdownButton<GameType?>(
                     isExpanded: true,
                     hint: Text("Oyun türü"),
-                    icon: Icon(Icons.extension,color: Theme.of(context).primaryColor,),
+                    icon: Icon(
+                      Icons.extension,
+                      color: CustomThemeData.primaryColor,
+                    ),
                     value: selectedGameType,
-                    onChanged: (GameType? gameType){
+                    onChanged: (GameType? gameType) {
                       setState(() {
                         selectedGameType = gameType!;
                         gameGet.filterGameList(currFilter, selectedGameType, selectedGameProvince);
@@ -86,7 +90,7 @@ class _GameScreenFilterState extends State<GameScreenFilter> {
                             ? "Kutu oyunu"
                             : e == GameType.tcg
                             ? "TCG"
-                            : "Hata"),
+                            : "Hepsi"),
                         value: e,
                       ),
                     ).toList(),

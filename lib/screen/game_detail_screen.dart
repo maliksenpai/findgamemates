@@ -1,5 +1,6 @@
 import 'package:findgamemates/model/game_post.dart';
 import 'package:findgamemates/model/game_types.dart';
+import 'package:findgamemates/theme_data.dart';
 import 'package:findgamemates/view/game_detail_comments.dart';
 import 'package:findgamemates/view/game_detail_input.dart';
 import 'package:flutter/material.dart';
@@ -59,13 +60,15 @@ class _GameDetailScreenState extends State<GameDetailScreen> {
               children: [
                 Text(
                   widget.gamePost.title,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 22,
+                    color: CustomThemeData.primaryAccentColor,
                   ),
                 ),
                 const Divider(),
                 Card(
+                  shadowColor: CustomThemeData.cardColor,
                   elevation: 12,
                   child: Column(
                     children: [
@@ -87,7 +90,7 @@ class _GameDetailScreenState extends State<GameDetailScreen> {
                                 children: [
                                   Icon(
                                     Icons.extension,
-                                    color: Theme.of(context).primaryColor,
+                                    color: CustomThemeData.primaryColor,
                                     size: 20,
                                   ),
                                   const SizedBox(
@@ -104,9 +107,10 @@ class _GameDetailScreenState extends State<GameDetailScreen> {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  const Icon(
+                                  Icon(
                                     Icons.location_on,
                                     size: 20,
+                                    color: CustomThemeData.accentColor,
                                   ),
                                   const SizedBox(
                                     width: 4,

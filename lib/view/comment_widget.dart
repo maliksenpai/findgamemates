@@ -1,4 +1,5 @@
 import 'package:findgamemates/model/game_comment.dart';
+import 'package:findgamemates/theme_data.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -25,6 +26,7 @@ class _CommentWidgetState extends State<CommentWidget> {
   @override
   Widget build(BuildContext context) {
     return Card(
+      shadowColor: CustomThemeData.cardColor,
       elevation: 8,
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 16,horizontal: 8),

@@ -21,6 +21,7 @@ class GameGet extends GetxController {
   void onInit() async {
     if (postList.value.isEmpty) {
       postList.value = await firebaseGame.getGameList(null, null, null);
+      postList.value.sort((a,b) => a.createTime.compareTo(b.createTime));
       notFilteredList.addAll(postList.value);
     }
     super.onInit();
@@ -28,17 +29,11 @@ class GameGet extends GetxController {
 
   void filterGameList(String filter, GameType? gameType, String? province) {
     postList.value = notFilteredList.where((element) =>
-    (element.gameType == gameType || gameType == null) &&
+    (element.gameType == gameType || gameType == GameType.all || gameType == null) &&
         (element.title.contains(filter) || element.desc.contains(filter)) &&
-        (element.province == province || province == null)
+        (element.province == province || province == "Hepsi" || province == null)
     ).toList();
-    /*postList.value = notFilteredList.where((element) {
-      bool a1 = element.gameType == gameType;
-      bool a2 = (element.title.contains(filter) || element.desc.contains(filter));
-      bool a3 = element.province == province;
-      return a1 && a2 && a3;
-    }).toList();*/
-
+    postList.value.sort((a,b) => a.createTime.compareTo(b.createTime));
     postList.refresh();
   }
 
@@ -54,6 +49,7 @@ class GameGet extends GetxController {
 
   Future getListComment(String postId) async {
     currComments.value = await firebaseGame.getComments(postId);
+    currComments.value!.sort((a,b) => a.sendTime.compareTo(b.sendTime));
     currComments.refresh();
   }
 

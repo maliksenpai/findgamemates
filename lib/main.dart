@@ -5,6 +5,7 @@ import 'package:findgamemates/screen/games_screen.dart';
 import 'package:findgamemates/screen/intro_screen.dart';
 import 'package:findgamemates/screen/profile_screen.dart';
 import 'package:findgamemates/screen/settings_screen.dart';
+import 'package:findgamemates/theme_data.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -46,7 +47,7 @@ class MyApp extends StatelessWidget {
         '/settings' : (context) => const SettingsScreen(),
         'profile' : (context) => const ProfileScreen()
       },
-      theme: settingsDatabase.isDarkMode() ? ThemeData.dark() : ThemeData.light(),
+      theme: settingsDatabase.isDarkMode() ? CustomThemeData().darkTheme : CustomThemeData().lightTheme,
       home: const IntroScreen(),
     );
   }
