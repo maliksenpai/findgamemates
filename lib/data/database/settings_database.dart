@@ -12,7 +12,7 @@ class SettingsDatabase extends GetxService{
   }
 
   bool isDarkMode(){
-    return applicationBox.get("theme", defaultValue: true);
+    return applicationBox.get("theme", defaultValue: false);
   }
 
   void changeTheme(bool bool){

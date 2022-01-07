@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class CustomThemeData{
 
@@ -29,7 +30,8 @@ class CustomThemeData{
     ),
     floatingActionButtonTheme: FloatingActionButtonThemeData(
       backgroundColor: primaryColor,
-    )
+    ),
+    textTheme: GoogleFonts.openSansTextTheme(),
   );
 
   final ThemeData darkTheme = ThemeData(
@@ -45,6 +47,7 @@ class CustomThemeData{
           )
       ),
     ),
+    textTheme: GoogleFonts.openSansTextTheme()
   );
 
 }

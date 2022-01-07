@@ -1,12 +1,15 @@
-import 'package:findgamemates/data/firebase/firebase_user.dart';
 import 'package:findgamemates/get/user_get.dart';
 import 'package:findgamemates/model/login_request.dart';
 import 'package:findgamemates/model/login_response.dart';
 import 'package:findgamemates/screen/main_screen.dart';
-import 'package:findgamemates/screen/register_screen.dart';
+import 'package:findgamemates/theme_data.dart';
+import 'package:findgamemates/utils/dialog_utils.dart';
 import 'package:findgamemates/utils/regex_util.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:loading_indicator/loading_indicator.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -25,19 +28,43 @@ class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Giriş Ekranı"),),
+      resizeToAvoidBottomInset: false,
+      appBar: AppBar(title: const Text("Giriş Ekranı"), elevation: 0,),
       body: SafeArea(
         child: Center(
           child: Form(
             key: _formKey,
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                ClipPath(
+                  clipper: WaveClipperTwo(),
+                  child: Container(
+                    height: MediaQuery.of(context).size.height * 0.1,
+                    color: CustomThemeData.primaryColor,
+                  ),
+                ),
+                Container(
+                  height: MediaQuery.of(context).size.height * 0.1,
+                  width: MediaQuery.of(context).size.width * 0.5,
+                  child: FittedBox(
+                    fit: BoxFit.contain,
+                    child: Text(
+                      "Aslan Ağızı Hanı",
+                      style: GoogleFonts.lobster(),
+                    ),
+                  ),
+                ),
                 Column(
                   mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     SizedBox(
                       width: MediaQuery.of(context).size.width * 0.7,
@@ -45,6 +72,10 @@ class _LoginScreenState extends State<LoginScreen> {
                         controller: mailController,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: BorderSide(color: CustomThemeData.primaryColor),
+                          ),
                           prefixIcon: Icon(Icons.person),
                           labelText: "Mail Adresi",
                         ),
@@ -68,7 +99,14 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: TextFormField(
                         controller: passController,
                         decoration: InputDecoration(
-                          border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20),
+                            borderSide: BorderSide(color: CustomThemeData.primaryColor)
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: BorderSide(color: CustomThemeData.primaryColor),
+                          ),
                           labelText: "Şifre",
                           prefixIcon: Icon(Icons.security),
                           suffixIcon: IconButton(
@@ -76,7 +114,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               _passwordVisible
                                   ? Icons.visibility
                                   : Icons.visibility_off,
-                              color: Theme.of(context).primaryColorDark,
+                              color: CustomThemeData.accentColor,
                             ),
                             onPressed: () {
                               setState(() {
@@ -104,7 +142,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ],
                 ),
-                SizedBox(height: 50,),
                 Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
@@ -113,8 +150,24 @@ class _LoginScreenState extends State<LoginScreen> {
                       onPressed: () => attemptLogin(),
                     ),
                     SizedBox(height: 20,),
-                    const Text("Eğer hesabınız yoksa otomatik olarak kayıt ekranına yönlendirileceksiniz",style: TextStyle(fontWeight: FontWeight.bold),),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.7,
+                      child: Text(
+                        "Eğer hesabınız yoksa otomatik olarak kayıt ekranına yönlendirileceksiniz",
+                        style: TextStyle(fontWeight: FontWeight.bold, color: CustomThemeData.primaryColor),
+                      ),
+                    ),
                   ],
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.1,
+                ),
+                ClipPath(
+                  clipper: WaveClipperTwo(reverse: true),
+                  child: Container(
+                    height: MediaQuery.of(context).size.height * 0.1,
+                    color: CustomThemeData.primaryColor,
+                  ),
                 )
               ],
             ),
@@ -125,8 +178,10 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Future<void> attemptLogin() async{
+    DialogUtils.createLoadingDialog(context, "Yükleniyor", "Uygulamaya giriş yapılmaya çalışılıyor");
     if( _formKey.currentState!.validate()){
       LoginResponse loginResponse = await userGet.loginUser(LoginRequest(mail: mailController.text, passHash: passController.text));
+      Navigator.of(Get.overlayContext!).pop();
       if(loginResponse == LoginResponse.successful){
         Get.offAll(const MainScreen());
       } else if(loginResponse == LoginResponse.userNotFound){
@@ -145,7 +200,7 @@ class _LoginScreenState extends State<LoginScreen> {
         Get.snackbar("Hata", "Hata oluştu");
       }
     }else{
-
+      Navigator.of(Get.overlayContext!).pop();
     }
   }
 }

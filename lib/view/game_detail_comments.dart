@@ -33,9 +33,13 @@ class _GameDetailCommentsState extends State<GameDetailComments> {
   Widget build(BuildContext context) {
     return Obx(() {
       if (gameGet.currComments.value == null) {
-        return const Padding(
-          padding: EdgeInsets.all(8.0),
-          child: CircularProgressIndicator(strokeWidth: 4,),
+        return Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: SizedBox(
+            height: MediaQuery.of(context).size.height * 0.1,
+            width: MediaQuery.of(context).size.width * 0.1,
+            child: const CircularProgressIndicator(strokeWidth: 4,),
+          ),
         );
       } else {
         if (gameGet.currComments.value!.isEmpty) {

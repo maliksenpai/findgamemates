@@ -1,6 +1,7 @@
 import 'package:findgamemates/get/game_get.dart';
 import 'package:findgamemates/model/game_post.dart';
 import 'package:findgamemates/model/game_types.dart';
+import 'package:findgamemates/utils/dialog_utils.dart';
 import 'package:findgamemates/utils/utils_data.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -47,6 +48,11 @@ class _CreateGameScreenState extends State<CreateGameScreen> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
+                  Image.asset(
+                    "assets/images/camping.png",
+                    width: MediaQuery.of(context).size.width * 0.4,
+                    height: MediaQuery.of(context).size.height * 0.2
+                  ),
                   ListTile(
                     title: Text("Oyun ismi"),
                     trailing: SizedBox(
@@ -118,9 +124,13 @@ class _CreateGameScreenState extends State<CreateGameScreen> {
                       primary: Theme.of(context).colorScheme.secondary,
                     ),
                     onPressed: () async {
+                      //todo: check works normal?
+                      DialogUtils.createLoadingDialog(context, "Yükleniyor", "Oyun oluşturuluyor");
                       if(titleController.text.isNotEmpty && descController.text.isNotEmpty){
-                        //todo: add progress dialog
                         await gameGet.createGame(titleController.text, descController.text, selectedGameProvince, selectedGameType);
+                        //todo: add failed/success dialog
+                        Navigator.of(Get.overlayContext!).pop();
+                        Get.back();
                       }
                     },
                   )

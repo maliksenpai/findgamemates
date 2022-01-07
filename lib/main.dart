@@ -1,4 +1,3 @@
-import 'package:findgamemates/data/database/user_database.dart';
 import 'package:findgamemates/get/initial_bindings.dart';
 import 'package:findgamemates/model/app_user.dart';
 import 'package:findgamemates/screen/games_screen.dart';
@@ -7,19 +6,30 @@ import 'package:findgamemates/screen/profile_screen.dart';
 import 'package:findgamemates/screen/settings_screen.dart';
 import 'package:findgamemates/theme_data.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import 'data/database/settings_database.dart';
 
 void main() async {
+  //todo : sunu bi incele
+  await licenses();
   registerAdapters();
   await initHiveBoxes();
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   InitialBindings().dependencies();
   runApp(const MyApp());
+}
+
+Future licenses() async{
+  LicenseRegistry.addLicense(() async* {
+    final license = await rootBundle.loadString('google_fonts/OFL.txt');
+    yield LicenseEntryWithLineBreaks(['google_fonts'], license);
+  });
 }
 
 void registerAdapters(){

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:get/get.dart';
@@ -5,11 +6,13 @@ import 'package:get/get.dart';
 class FirebaseLog extends GetxService{
 
   late DatabaseReference databaseReference;
+  late CollectionReference collectionReference;
   late FirebaseAuth firebaseAuth;
 
   @override
   void onInit() {
-    databaseReference = FirebaseDatabase.instance.reference().child("logs");
+    collectionReference = FirebaseFirestore.instance.collection("logs");
+    //databaseReference = FirebaseDatabase.instance.reference().child("logs");
     firebaseAuth = FirebaseAuth.instance;
     super.onInit();
   }
@@ -20,7 +23,8 @@ class FirebaseLog extends GetxService{
       String dateTime = DateTime.now().toUtc().toString();
       String userId = user.uid;
       String logResult = userId + "  -  " + dateTime + "  -  " + log;
-      databaseReference.push().set(logResult);
+      //databaseReference.push().set(logResult);
+      collectionReference.add({"log": logResult});
     }
   }
 

@@ -19,7 +19,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     appUser = userDatabase.getUser();
   }
@@ -94,7 +93,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         children: [
                           Icon(Icons.person, color: CustomThemeData.primaryColor,),
                           SizedBox(width: 10,),
-                          Text("deneme kullanıcı")
+                          Text(appUser!.displayName!)
                         ],
                       )
                     ],

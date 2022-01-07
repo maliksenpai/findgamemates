@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:findgamemates/data/database/user_database.dart';
 import 'package:findgamemates/model/login_request.dart';
 import 'package:findgamemates/model/login_response.dart';
@@ -10,11 +11,13 @@ import 'package:get/get.dart';
 class FirebaseUser extends GetxService{
 
   late DatabaseReference databaseReference;
+  late CollectionReference collectionReference;
   late FirebaseAuth firebaseAuth;
   UserDatabase userDatabase = Get.put(UserDatabase());
 
   @override
   void onInit() {
+    collectionReference = FirebaseFirestore.instance.collection("users");
     databaseReference = FirebaseDatabase.instance.reference().child("users");
     firebaseAuth = FirebaseAuth.instance;
     super.onInit();
@@ -68,7 +71,11 @@ class FirebaseUser extends GetxService{
 
 
   Future saveDatabaseUser(AppUser appUser) async {
-    databaseReference.child(appUser.uid.toString()).set(appUser.toJson());
+    try{
+      collectionReference.doc(appUser.uid.toString()).set(appUser.toJson());
+    }catch(e){
+      print(e);
+    }
   }
 
 
@@ -77,6 +84,18 @@ class FirebaseUser extends GetxService{
       await firebaseAuth.signOut();
       return true;
     }catch (e){
+      return false;
+    }
+  }
+
+  Future<bool> setUsername(String username) async{
+    try{
+      //todo: check taken
+      //await databaseReference.child(firebaseAuth.currentUser!.uid.toString()).child("username").set(username);
+      await collectionReference.doc(firebaseAuth.currentUser!.uid.toString()).update({"displayName": username});
+      return true;
+    }catch (e){
+      print(e);
       return false;
     }
   }

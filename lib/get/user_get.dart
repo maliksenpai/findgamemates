@@ -29,4 +29,15 @@ class UserGet extends GetxController{
     }
     return logout;
   }
+
+  Future<bool> setUsername(String username) async {
+    bool isSuccess = await firebaseUser.setUsername(username);
+    if(isSuccess){
+      var user = userDatabase.getUser();
+      user!.displayName = username;
+      userDatabase.saveUser(user);
+    }
+    return isSuccess;
+
+  }
 }

@@ -4,6 +4,7 @@ import 'package:findgamemates/theme_data.dart';
 import 'package:findgamemates/view/game_detail_comments.dart';
 import 'package:findgamemates/view/game_detail_input.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class GameDetailScreen extends StatefulWidget {
 
@@ -72,10 +73,28 @@ class _GameDetailScreenState extends State<GameDetailScreen> {
                   elevation: 12,
                   child: Column(
                     children: [
-                      Padding(
+                      Container(
                         padding: const EdgeInsets.all(8.0),
+                        alignment: Alignment.topLeft,
                         child: Text(
                           widget.gamePost.desc,
+                        ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 12,vertical: 4),
+                        alignment: Alignment.bottomRight,
+                        child: Text(
+                          widget.gamePost.createrName,
+                          style: TextStyle(color: Theme.of(context).primaryColor,fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 12,vertical: 4),
+                        alignment: Alignment.bottomRight,
+                        child: Text(
+                          //todo: check local date time
+                          DateFormat("dd/MM/yyyy HH:mm").format(DateTime.parse(widget.gamePost.createTime).toLocal()),
+                          style: const TextStyle(color: Colors.grey),
                         ),
                       ),
                       const Divider(),

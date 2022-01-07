@@ -38,7 +38,7 @@ class _CommentWidgetState extends State<CommentWidget> {
               alignment: Alignment.centerLeft,
               child: Text(
                 widget.gameComment.senderName,
-                style: const TextStyle(fontWeight: FontWeight.bold),
+                style: TextStyle(fontWeight: FontWeight.bold, color: Theme.of(context).primaryColor),
               ),
             ),
             Container(
