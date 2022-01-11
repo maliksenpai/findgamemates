@@ -78,6 +78,7 @@ class GameGet extends GetxController {
       GameComment? gameComment = await firebaseGame.addComment(postId, comment);
       currComments.value!.add(gameComment!);
       currComments.refresh();
+      await firebaseLog.writeLog(userDatabase.getUser()!.uid! + " - " + postId + " - " + LogUtils.addedComment);
       return gameComment;
     }catch(e){
       return null;

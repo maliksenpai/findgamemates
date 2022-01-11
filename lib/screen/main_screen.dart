@@ -104,6 +104,8 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin{
                         bool response = await userGet.setUsername(controller.text);
                         if(response){
                           setState((){
+                            isErrorShort = false;
+                            isErrorTaken = false;
                             isSuccess = true;
                           });
                           Future.delayed(Duration(seconds: 2),(){
@@ -111,6 +113,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin{
                           });
                         }else{
                           setState((){
+                            isSuccess = false;
                             isErrorShort = false;
                             isErrorTaken = true;
                           });

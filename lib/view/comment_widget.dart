@@ -52,7 +52,6 @@ class _CommentWidgetState extends State<CommentWidget> {
               padding: const EdgeInsets.symmetric(horizontal: 12,vertical: 4),
               alignment: Alignment.bottomRight,
               child: Text(
-                //todo: check local date time
                 DateFormat("dd/MM/yyyy HH:mm").format(DateTime.parse(widget.gameComment.sendTime).toLocal()),
                 style: const TextStyle(color: Colors.grey),
               ),

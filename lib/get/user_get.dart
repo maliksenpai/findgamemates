@@ -25,6 +25,7 @@ class UserGet extends GetxController{
   Future<bool> logoutUser() async{
     bool logout = await firebaseUser.logoutUser();
     if(logout){
+      firebaseLog.writeLog(userDatabase.getUser()!.uid! + " - " + LogUtils.logoutUser);
       userDatabase.deleteUser();
     }
     return logout;
@@ -36,6 +37,7 @@ class UserGet extends GetxController{
       var user = userDatabase.getUser();
       user!.displayName = username;
       userDatabase.saveUser(user);
+      await firebaseLog.writeLog(LogUtils.registerSuccess);
     }
     return isSuccess;
 

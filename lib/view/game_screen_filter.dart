@@ -17,8 +17,7 @@ class _GameScreenFilterState extends State<GameScreenFilter> {
   GameGet gameGet = Get.put(GameGet());
   List<GameType> gameTypeList = GameType.values;
   GameType? selectedGameType;
-  //todo : add "hepsi" element
-  List<String> gameProvinceList= UtilData.provienceList;
+  List<String> gameProvinceList= ["Hepsi", ...UtilData.provienceList];
   String? selectedGameProvince;
   String currFilter = "";
 

@@ -43,24 +43,27 @@ class _GameDetailInputState extends State<GameDetailInput> {
             flex: 1,
             child: IconButton(
               onPressed: () async {
-                //todo:add validation
-                Get.defaultDialog(
-                  title: "Yükleniyor",
-                  content: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: const [
-                      CircularProgressIndicator(),
-                      Text("Yorum Ekleniyor")
-                    ],
-                  ),
-                  barrierDismissible: false
-                );
-                GameComment? comment = await gameGet.addComment(widget.postId, inputController.text);
-                Navigator.of(Get.overlayContext!).pop();
-                if(comment == null){
-                  Get.snackbar("İşlem başarısız", "Yorum gönderilemedi");
+                if(!inputController.text.isEmpty){
+                  Get.defaultDialog(
+                      title: "Yükleniyor",
+                      content: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: const [
+                          CircularProgressIndicator(),
+                          Text("Yorum Ekleniyor")
+                        ],
+                      ),
+                      barrierDismissible: false
+                  );
+                  GameComment? comment = await gameGet.addComment(widget.postId, inputController.text);
+                  Navigator.of(Get.overlayContext!).pop();
+                  if(comment == null){
+                    Get.snackbar("İşlem başarısız", "Yorum gönderilemedi");
+                  }else{
+                    inputController.clear();
+                  }
                 }else{
-                  inputController.clear();
+                  Get.snackbar("İşlem başarısız", "Yorum boş gönderilemez");
                 }
               },
               icon: Icon(Icons.send, color: Theme.of(context).primaryColor,),

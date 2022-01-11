@@ -26,103 +26,107 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          Container(
-            constraints: BoxConstraints(
-              minHeight: MediaQuery.of(context).size.height*0.4,
-              maxHeight: MediaQuery.of(context).size.height*0.4,
-            ),
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topRight,
-                end: Alignment.bottomLeft,
-                colors: [
-                  CustomThemeData.primaryColor,
-                  CustomThemeData.accentColor
-                ]
+      body: SizedBox(
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
+        child: Column(
+          children: [
+            Container(
+              constraints: BoxConstraints(
+                minHeight: MediaQuery.of(context).size.height*0.4,
+                maxHeight: MediaQuery.of(context).size.height*0.4,
               ),
-              borderRadius: const BorderRadius.only(
-                bottomLeft: Radius.elliptical(500,200),
-                bottomRight: Radius.elliptical(500,200)
-              )
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Container(
-                  alignment: Alignment.center,
-                  child: const Text(
-                    "Profil Ekranı",
-                    style: TextStyle(
-                      fontSize: 30,
-                      color: Colors.white
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topRight,
+                  end: Alignment.bottomLeft,
+                  colors: [
+                    CustomThemeData.primaryColor,
+                    CustomThemeData.accentColor
+                  ]
+                ),
+                borderRadius: const BorderRadius.only(
+                  bottomLeft: Radius.elliptical(500,200),
+                  bottomRight: Radius.elliptical(500,200)
+                )
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Container(
+                    alignment: Alignment.center,
+                    child: const Text(
+                      "Profil Ekranı",
+                      style: TextStyle(
+                        fontSize: 30,
+                        color: Colors.white
+                      ),
                     ),
                   ),
-                ),
-                CircleAvatar(
-                  radius: 60,
-                  child: Icon(
-                    Icons.person,
-                    color: CustomThemeData.cardColor,
-                    size: 100,
-                  ),
-                  backgroundColor: Colors.white,
-                )
-              ],
+                  CircleAvatar(
+                    radius: 60,
+                    child: Icon(
+                      Icons.person,
+                      color: CustomThemeData.cardColor,
+                      size: 100,
+                    ),
+                    backgroundColor: Colors.white,
+                  )
+                ],
+              ),
             ),
-          ),
-          Container(
-            constraints: BoxConstraints(
-              minHeight: MediaQuery.of(context).size.height*0.4,
-              maxHeight: MediaQuery.of(context).size.height*0.4,
-            ),
-            child: Column(
-              children: [
-                Container(
-                  padding: const EdgeInsets.only(top: 20),
-                  child: Column(
-                    children: [
-                      Text("Kullanıcı Adı", style: TextStyle(fontWeight: FontWeight.bold),),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 50, right: 50),
-                        child: Divider(thickness: 2, color: CustomThemeData.primaryColor,),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.person, color: CustomThemeData.primaryColor,),
-                          SizedBox(width: 10,),
-                          Text(appUser!.displayName!)
-                        ],
-                      )
-                    ],
+            Container(
+              constraints: BoxConstraints(
+                minHeight: MediaQuery.of(context).size.height*0.4,
+                maxHeight: MediaQuery.of(context).size.height*0.4,
+              ),
+              child: Column(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.only(top: 20),
+                    child: Column(
+                      children: [
+                        Text("Kullanıcı Adı", style: TextStyle(fontWeight: FontWeight.bold),),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 50, right: 50),
+                          child: Divider(thickness: 2, color: CustomThemeData.primaryColor,),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.person, color: CustomThemeData.primaryColor,),
+                            SizedBox(width: 10,),
+                            Text(appUser!.displayName!)
+                          ],
+                        )
+                      ],
+                    ),
                   ),
-                ),
-                Container(
-                  padding: const EdgeInsets.only(top: 20),
-                  child: Column(
-                    children: [
-                      Text("Mail Adres", style: TextStyle(fontWeight: FontWeight.bold),),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 50, right: 50),
-                        child: Divider(thickness: 2, color: CustomThemeData.primaryColor,),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.mail, color: CustomThemeData.primaryColor,),
-                          SizedBox(width: 10,),
-                          Text(appUser!.email!)
-                        ],
-                      )
-                    ],
-                  ),
-                )
-              ],
-            ),
-          )
-        ],
+                  Container(
+                    padding: const EdgeInsets.only(top: 20),
+                    child: Column(
+                      children: [
+                        Text("Mail Adres", style: TextStyle(fontWeight: FontWeight.bold),),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 50, right: 50),
+                          child: Divider(thickness: 2, color: CustomThemeData.primaryColor,),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.mail, color: CustomThemeData.primaryColor,),
+                            SizedBox(width: 10,),
+                            Text(appUser!.email!)
+                          ],
+                        )
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

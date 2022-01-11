@@ -72,27 +72,30 @@ class FirebaseGame extends GetxService{
   }
 
   Future<List<GameComment>> getComments(String postId) async{
-    List<GameComment> commentList = [];
-    //var postRef = commentsReference.child(postId);
-    var postRef = commentsFirestore.where('postId', isEqualTo: postId);
-    await postRef.where('active', isEqualTo: true).get().then((value){
-      try{
-        var mapEntry = value.docs;
-        for (var data in mapEntry) {
-          Map<String, dynamic> json = Map<String, dynamic>.from(data.data() as Map);
-          GameComment gameComment = GameComment.fromJson(json);
-          commentList.add(gameComment);
+    try{
+      List<GameComment> commentList = [];
+      //var postRef = commentsReference.child(postId);
+      var postRef = commentsFirestore.where('postId', isEqualTo: postId);
+      await postRef.where('active', isEqualTo: true).get().then((value){
+        try{
+          var mapEntry = value.docs;
+          for (var data in mapEntry) {
+            Map<String, dynamic> json = Map<String, dynamic>.from(data.data() as Map);
+            GameComment gameComment = GameComment.fromJson(json);
+            commentList.add(gameComment);
+          }
+        }catch(e){
+          debugPrint(e.toString());
+          return [];
         }
-      }catch(e){
-        debugPrint(e.toString());
-        return [];
-      }
-    });
-    return commentList;
+      });
+      return commentList;
+    }catch(e){
+      return [];
+    }
   }
 
   Future<GameComment?> addComment(String postId, String comment) async{
-    //todo: id wrong
     try{
       GameComment gameComment = GameComment(
           id: "temporary_id",

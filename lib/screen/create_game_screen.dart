@@ -124,13 +124,19 @@ class _CreateGameScreenState extends State<CreateGameScreen> {
                       primary: Theme.of(context).colorScheme.secondary,
                     ),
                     onPressed: () async {
-                      //todo: check works normal?
                       DialogUtils.createLoadingDialog(context, "Yükleniyor", "Oyun oluşturuluyor");
                       if(titleController.text.isNotEmpty && descController.text.isNotEmpty){
-                        await gameGet.createGame(titleController.text, descController.text, selectedGameProvince, selectedGameType);
-                        //todo: add failed/success dialog
+                        bool result = await gameGet.createGame(titleController.text, descController.text, selectedGameProvince, selectedGameType);
+                        if(result){
+                          Navigator.of(Get.overlayContext!).pop();
+                          Get.back();
+                        }else{
+                          Navigator.of(Get.overlayContext!).pop();
+                          Get.snackbar("Hata", "Bir hata oluştu");
+                        }
+                      }else{
                         Navigator.of(Get.overlayContext!).pop();
-                        Get.back();
+                        Get.snackbar("Hata", "Gerekli bilgileri doldurunuz lütfen");
                       }
                     },
                   )

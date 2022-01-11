@@ -92,7 +92,12 @@ class FirebaseUser extends GetxService{
     try{
       //todo: check taken
       //await databaseReference.child(firebaseAuth.currentUser!.uid.toString()).child("username").set(username);
-      await collectionReference.doc(firebaseAuth.currentUser!.uid.toString()).update({"displayName": username});
+      var checkTakenUsername = await collectionReference.where('displayName',isEqualTo: username).get();
+      if(checkTakenUsername.size == 0){
+        await collectionReference.doc(firebaseAuth.currentUser!.uid.toString()).update({"displayName": username});
+      }else{
+        return false;
+      }
       return true;
     }catch (e){
       print(e);
