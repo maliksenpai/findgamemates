@@ -23,7 +23,7 @@ void main() async {
   await Firebase.initializeApp();
   InitialBindings().dependencies();
   runApp(const MyApp());
-}
+}  
 
 Future licenses() async{
   LicenseRegistry.addLicense(() async* {

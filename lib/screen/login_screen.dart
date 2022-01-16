@@ -39,73 +39,90 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return PlatformScaffold(
+      backgroundColor: CustomThemeData.backgroundColor,
       appBar: PlatformAppBar(
         title: const Text("Giriş Ekranı"),
         material: (_, __) => MaterialAppBarData(
           elevation: 0
         ),
         cupertino: (_, __) => CupertinoNavigationBarData(
-
+          backgroundColor: CustomThemeData.primaryColor,
+          border: Border.all(width: 0, color: CustomThemeData.primaryColor),
+          transitionBetweenRoutes: true
         ),
       ),
       body: SafeArea(
         child: Center(
-          child: Form(
-            key: _formKey,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                ClipPath(
-                  clipper: WaveClipperTwo(),
-                  child: Container(
+          child: SizedBox(
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+            child: Form(
+              key: _formKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  ClipPath(
+                    clipper: WaveClipperTwo(),
+                    child: Container(
+                      height: MediaQuery.of(context).size.height * 0.1,
+                      color: CustomThemeData.primaryColor,
+                    ),
+                  ),
+                  Container(
                     height: MediaQuery.of(context).size.height * 0.1,
-                    color: CustomThemeData.primaryColor,
-                  ),
-                ),
-                Container(
-                  height: MediaQuery.of(context).size.height * 0.1,
-                  width: MediaQuery.of(context).size.width * 0.5,
-                  child: FittedBox(
-                    fit: BoxFit.contain,
-                    child: PlatformText(
-                      "Aslan Ağızı Hanı",
-                      style: GoogleFonts.lobster(),
-                    ),
-                  ),
-                ),
-                LoginTextArea(
-                    mailController: mailController,
-                    passwordController: passController,
-                    passwordVisible: _passwordVisible,
-                ),
-                Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    PlatformElevatedButton(
-                      child: const Text("Giriş Yap"),
-                      onPressed: () => attemptLogin(),
-                    ),
-                    SizedBox(height: 20,),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.7,
-                      child: PlatformText(
-                        "Eğer hesabınız yoksa otomatik olarak kayıt ekranına yönlendirileceksiniz",
-                        style: TextStyle(fontWeight: FontWeight.bold, color: CustomThemeData.primaryColor),
+                    width: MediaQuery.of(context).size.width * 0.5,
+                    child: Material(
+                      color: CustomThemeData.backgroundColor,
+                      child: FittedBox(
+                        fit: BoxFit.contain,
+                        child: Text(
+                          "Aslan Ağızı Hanı",
+                          style: GoogleFonts.lobster(),
+                        ),
                       ),
                     ),
-                  ],
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.1,
-                ),
-                ClipPath(
-                  clipper: WaveClipperTwo(reverse: true),
-                  child: Container(
-                    height: MediaQuery.of(context).size.height * 0.1,
-                    color: CustomThemeData.primaryColor,
                   ),
-                )
-              ],
+                  LoginTextArea(
+                      mailController: mailController,
+                      passwordController: passController,
+                      passwordVisible: _passwordVisible,
+                  ),
+                  Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      PlatformElevatedButton(
+                        child: const Text("Giriş Yap"),
+                        color: CustomThemeData.accentColor,
+                        onPressed: () => attemptLogin(),
+                        cupertino: (_,__) => CupertinoElevatedButtonData(
+                          originalStyle: true
+                        ),
+                      ),
+                      SizedBox(height: 20,),
+                      Material(
+                        color: CustomThemeData.backgroundColor,
+                        child: SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.7,
+                          child: Text(
+                            "Eğer hesabınız yoksa otomatik olarak kayıt ekranına yönlendirileceksiniz",
+                            style: TextStyle(fontWeight: FontWeight.bold, color: CustomThemeData.primaryColor),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.1,
+                  ),
+                  ClipPath(
+                    clipper: WaveClipperTwo(reverse: true),
+                    child: Container(
+                      height: MediaQuery.of(context).size.height * 0.1,
+                      color: CustomThemeData.primaryColor,
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
         ),

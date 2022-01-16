@@ -4,6 +4,7 @@ import 'package:findgamemates/get/user_get.dart';
 import 'package:findgamemates/screen/login_screen.dart';
 import 'package:findgamemates/theme_data.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:get/get.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -78,7 +79,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     bool logout = await userGet.logoutUser();
                     Navigator.of(Get.overlayContext!).pop();
                     if(logout){
-                      Get.off(const LoginScreen());
+                      Navigator.pushReplacement(
+                          context,
+                          platformPageRoute(
+                            context: context,
+                            material: (_, __) => MaterialPageRouteData((_) => LoginScreen(), RouteSettings(), true, false),
+                            cupertino: (_,__) => CupertinoPageRouteData((_) => LoginScreen(), RouteSettings(), true, false)
+                          )
+                      );
                     }else{
                       Get.snackbar("İşlem Başarısız", "Çıkış işlemi başarısız oldu");
                     }

@@ -97,20 +97,8 @@ class _LoginTextAreaState extends State<LoginTextArea> {
               prefix: Row(
                 children: [
                   Icon(Icons.security),
-                  IconButton(
-                    icon: Icon(
-                      widget.passwordVisible ? Icons.visibility : Icons.visibility_off,
-                      color: CustomThemeData.accentColor,
-                    ),
-                    onPressed: () {
-                      setState(() {
-                        widget.passwordVisible = !widget.passwordVisible;
-                      });
-                    },
-                  ),
                 ],
               )
-
             ),
             autocorrect: false,
             obscureText: !widget.passwordVisible,
