@@ -22,7 +22,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
   late TabController tabController;
   UserDatabase userDatabase = Get.put(UserDatabase());
   UserGet userGet = Get.put(UserGet());
-  int iosTabBarIndex = 0;
+  int iosTabBarIndex = 1;
 
   @override
   void initState() {
@@ -41,6 +41,9 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
           style: TextStyle(color: Colors.white),
         ),
         backgroundColor: CustomThemeData.primaryColor,
+        cupertino: (_, __) => CupertinoNavigationBarData(
+          brightness: Brightness.dark
+        ),
       ),
       body: SafeArea(
           child: tabController.index == 0

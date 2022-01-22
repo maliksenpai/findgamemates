@@ -1,6 +1,7 @@
 import 'package:findgamemates/get/game_get.dart';
 import 'package:findgamemates/model/game_comment.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:get/get.dart';
 
 class GameDetailInput extends StatefulWidget {
@@ -28,13 +29,18 @@ class _GameDetailInputState extends State<GameDetailInput> {
             flex: 10,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 12),
-              child: TextField(
+              child: PlatformTextField(
                 controller: inputController,
                 keyboardType: TextInputType.multiline,
                 maxLines: null,
-                decoration: const InputDecoration(
-                  hintText: "Yorum",
-                  border: OutlineInputBorder()
+                material: (_, __) => MaterialTextFieldData(
+                  decoration: const InputDecoration(
+                      hintText: "Yorum",
+                      border: OutlineInputBorder()
+                  ),
+                ),
+                cupertino: (_, __) => CupertinoTextFieldData(
+                  placeholder: "Yorum"
                 ),
               ),
             ),

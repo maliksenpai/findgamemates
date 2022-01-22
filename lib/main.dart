@@ -9,6 +9,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
@@ -49,16 +50,18 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SettingsDatabase settingsDatabase = Get.put(SettingsDatabase());
-    return GetMaterialApp(
-      title: 'Flutter Demo',
-      initialBinding: InitialBindings(),
-      routes: {
-        '/games' : (context) => const GamesScreen(),
-        '/settings' : (context) => const SettingsScreen(),
-        'profile' : (context) => const ProfileScreen()
-      },
-      theme: settingsDatabase.isDarkMode() ? CustomThemeData().darkTheme : CustomThemeData().lightTheme,
-      home: const IntroScreen(),
+    return PlatformApp(
+      home: GetMaterialApp(
+        title: 'Flutter Demo',
+        initialBinding: InitialBindings(),
+        routes: {
+          '/games' : (context) => const GamesScreen(),
+          '/settings' : (context) => const SettingsScreen(),
+          'profile' : (context) => const ProfileScreen()
+        },
+        theme: settingsDatabase.isDarkMode() ? CustomThemeData().darkTheme : CustomThemeData().lightTheme,
+        home: const IntroScreen(),
+      ),
     );
   }
 }

@@ -4,6 +4,7 @@ import 'package:findgamemates/theme_data.dart';
 import 'package:findgamemates/view/game_detail_comments.dart';
 import 'package:findgamemates/view/game_detail_input.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:intl/intl.dart';
 
 class GameDetailScreen extends StatefulWidget {
@@ -46,9 +47,16 @@ class _GameDetailScreenState extends State<GameDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return PlatformScaffold(
       key: widget.key,
-      appBar: AppBar(title: Text(widget.gamePost.title),),
+      appBar: PlatformAppBar(
+        title: Text(widget.gamePost.title, style: TextStyle(color: Colors.white),),
+        cupertino: (_, __) => CupertinoNavigationBarData(
+          backgroundColor: CustomThemeData.primaryColor,
+          brightness: Brightness.dark,
+          noMaterialParent: true
+        ),
+      ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -59,12 +67,14 @@ class _GameDetailScreenState extends State<GameDetailScreen> {
             },
             child: ListView(
               children: [
-                Text(
-                  widget.gamePost.title,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 22,
-                    color: CustomThemeData.primaryAccentColor,
+                Material(
+                  child: PlatformText(
+                    widget.gamePost.title,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 22,
+                      color: CustomThemeData.primaryAccentColor,
+                    ),
                   ),
                 ),
                 const Divider(),

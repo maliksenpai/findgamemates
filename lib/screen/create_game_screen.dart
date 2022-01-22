@@ -1,9 +1,12 @@
 import 'package:findgamemates/get/game_get.dart';
 import 'package:findgamemates/model/game_post.dart';
 import 'package:findgamemates/model/game_types.dart';
+import 'package:findgamemates/theme_data.dart';
 import 'package:findgamemates/utils/dialog_utils.dart';
 import 'package:findgamemates/utils/utils_data.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:get/get.dart';
 
 class CreateGameScreen extends StatefulWidget {
@@ -18,7 +21,7 @@ class _CreateGameScreenState extends State<CreateGameScreen> {
   GameGet gameGet = Get.put(GameGet());
   TextEditingController titleController = TextEditingController();
   TextEditingController descController = TextEditingController();
-  List<GameType> gameTypeList = GameType.values;
+  List<GameType> gameTypeList = GameType.values.sublist(0,3);
   late GameType selectedGameType;
   List<String> gameProvinceList= UtilData.provienceList;
   late String selectedGameProvince;
@@ -32,9 +35,69 @@ class _CreateGameScreenState extends State<CreateGameScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Oyun Yaratma"),
+
+
+    void cupertinoGameTypeSelector(context){
+      showCupertinoModalPopup(
+          context: context,
+          builder: (_) => Container(
+            color: Colors.white,
+            width: 300,
+            alignment: Alignment.center,
+            height: MediaQuery.of(context).size.height * 0.2,
+            child: CupertinoPicker(
+              itemExtent: 30,
+              children: gameTypeList.map(
+                    (e) => DropdownMenuItem(
+                  child: Center(
+                    child: Text(e == GameType.frp
+                        ? "FRP"
+                        : e == GameType.boardGame
+                        ? "Kutu oyunu"
+                        : "TCG"),
+                  ),
+                  value: e,
+                ),
+              ).toList(),
+              onSelectedItemChanged: (int index) {
+                setState(() {
+                  selectedGameType = gameTypeList[index];
+                });
+              },
+            ),
+          )
+      );
+    }
+
+    void cupertinoProvienceSelector(){
+      showCupertinoModalPopup(
+          context: context,
+          builder: (_) => Container(
+            color: Colors.white,
+            width: 300,
+            alignment: Alignment.center,
+            height: MediaQuery.of(context).size.height * 0.4,
+            child: CupertinoPicker(
+              itemExtent: 30,
+              children: gameProvinceList.map((e) => Center(child: Text(e))).toList(),
+              onSelectedItemChanged: (int index) {
+                setState(() {
+                  selectedGameProvince = gameProvinceList[index];
+                });
+              },
+            ),
+          )
+      );
+    }
+
+    return PlatformScaffold(
+      appBar: PlatformAppBar(
+        title: Text("Oyun Yaratma",style: TextStyle(color: Colors.white),),
+        backgroundColor: CustomThemeData.primaryColor,
+        cupertino: (_, __) => CupertinoNavigationBarData(
+            brightness: Brightness.dark,
+
+        ),
       ),
       body: Center(
         child: Container(
@@ -42,7 +105,7 @@ class _CreateGameScreenState extends State<CreateGameScreen> {
           child: NotificationListener<OverscrollIndicatorNotification>(
             onNotification: (overScroll){
               overScroll.disallowGlow();
-              return false;
+              return true;
             },
             child: SingleChildScrollView(
               child: Column(
@@ -53,89 +116,178 @@ class _CreateGameScreenState extends State<CreateGameScreen> {
                     width: MediaQuery.of(context).size.width * 0.4,
                     height: MediaQuery.of(context).size.height * 0.2
                   ),
-                  ListTile(
-                    title: Text("Oyun ismi"),
-                    trailing: SizedBox(
-                      width: MediaQuery.of(context).size.width*0.4,
-                      child: TextField(
-                        controller: titleController,
-                        maxLines: 1,
-                        maxLength: 20,
-                      ),
+                  SizedBox(height: 20,),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Material(
+                          child: Container(
+                              width: MediaQuery.of(context).size.width*0.4,
+                              color: CustomThemeData.backgroundColor,
+                              alignment: Alignment.center,
+                              child: PlatformText("Oyun ismi",)
+                          ),
+                        ),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width*0.4,
+                          child: PlatformTextField(
+                            controller: titleController,
+                            maxLines: 1,
+                            maxLength: 20,
+                          ),
+                        )
+                      ],
                     ),
                   ),
-                  ListTile(
-                    title: Row(
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        const Expanded(
-                          child: Text("Oyun açıklaması"),
+                        Material(
+                            child: Container(
+                                width: MediaQuery.of(context).size.width*0.4,
+                                alignment: Alignment.center,
+                                color: CustomThemeData.backgroundColor,
+                                child: PlatformText("Oyun açıklaması"),
+                            )
                         ),
-                        Expanded(
-                          child: TextField(
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width*0.4,
+                          child: PlatformTextField(
                             controller: descController,
                             maxLines: 10,
                             maxLength: 500,
-                            decoration: const InputDecoration(
-                              border: OutlineInputBorder(borderSide: BorderSide(color: Colors.blue, width: 1))
+                            material: (_, __) => MaterialTextFieldData(
+                              decoration: const InputDecoration(
+                                  border: OutlineInputBorder(borderSide: BorderSide(color: Colors.blue, width: 1))
+                              ),
                             ),
                           ),
                         )
                       ],
-                    )
+                    ),
                   ),
-                  ListTile(
-                    title: Text("Oyun türü"),
-                    trailing: DropdownButton(
-                      value: selectedGameType,
-                      onChanged: (GameType ?gameType){
-                        setState(() {
-                          selectedGameType = gameType!;
-                        });
-                      },
-                      items: gameTypeList.map(
-                            (e) => DropdownMenuItem(
-                          child: Text(e == GameType.frp
-                              ? "FRP"
-                              : e == GameType.boardGame
-                              ? "Kutu oyunu"
-                              : e == GameType.tcg
-                              ? "TCG"
-                              : "Hata"),
-                          value: e,
+                  Container(
+                    padding: const EdgeInsets.symmetric(vertical: 8),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Material(
+                          child: Container(
+                              width: MediaQuery.of(context).size.width*0.4,
+                              alignment: Alignment.center,
+                              color: CustomThemeData.backgroundColor,
+                              child: PlatformText("Oyun türü"),
+                          ),
                         ),
-                      ).toList(),
+                        PlatformWidget(
+                          material: (_, __) => Container(
+                            width: MediaQuery.of(context).size.width*0.4,
+                            child: DropdownButton(
+                              value: selectedGameType,
+                              onChanged: (GameType ?gameType){
+                                setState(() {
+                                  selectedGameType = gameType!;
+                                });
+                              },
+                              items: gameTypeList.map(
+                                    (e) => DropdownMenuItem(
+                                  child: Text(e == GameType.frp
+                                      ? "FRP"
+                                      : e == GameType.boardGame
+                                      ? "Kutu oyunu"
+                                      : e == GameType.tcg
+                                      ? "TCG"
+                                      : "Hata"),
+                                  value: e,
+                                ),
+                              ).toList(),
+                            ),
+                          ),
+                          cupertino: (_, __) => GestureDetector(
+                            child: Material(
+                              child: Container(
+                                width: MediaQuery.of(context).size.width*0.4,
+                                alignment: Alignment.center,
+                                padding: const EdgeInsets.symmetric(horizontal: 30),
+                                color: Colors.white,
+                                child: Text(selectedGameType == GameType.frp
+                                    ? "FRP"
+                                    : selectedGameType == GameType.boardGame
+                                    ? "Kutu oyunu"
+                                    : selectedGameType == GameType.tcg
+                                    ? "TCG"
+                                    : "Hata"),
+                              ),
+                            ),
+                            onTap: () => cupertinoGameTypeSelector(context) ,
+                          )
+                        )
+                      ],
                     ),
                   ),
-                  ListTile(
-                    title: Text("Oyun Konumu"),
-                    trailing: DropdownButton<String>(
-                      value: selectedGameProvince,
-                      onChanged: (String? gameProvince){
-                        setState(() {
-                          selectedGameProvince = gameProvince!;
-                        });
-                      },
-                      items: gameProvinceList.map((e) => DropdownMenuItem(child: Text(e),value: e,)).toList(),
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Material(
+                        child: Container(
+                          width: MediaQuery.of(context).size.width*0.4,
+                          alignment: Alignment.center,
+                          color: CustomThemeData.backgroundColor,
+                          child: PlatformText("Oyun Konumu"),
+                        ),
+                      ),
+                      PlatformWidget(
+                        material:(_, __) => Container(
+                          width: MediaQuery.of(context).size.width*0.4,
+                          child: DropdownButton<String>(
+                            value: selectedGameProvince,
+                            onChanged: (String? gameProvince){
+                              setState(() {
+                                selectedGameProvince = gameProvince!;
+                              });
+                            },
+                            items: gameProvinceList.map((e) => DropdownMenuItem(child: Text(e),value: e,)).toList(),
+                          ),
+                        ),
+                        cupertino: (_,__) => GestureDetector(
+                          child: Material(
+                            child: Container(
+                              width: MediaQuery.of(context).size.width*0.4,
+                              alignment: Alignment.center,
+                              padding: const EdgeInsets.symmetric(horizontal: 30),
+                              color: Colors.white,
+                              child: Text(selectedGameProvince),
+                            ),
+                          ),
+                          onTap: () => cupertinoProvienceSelector() ,
+                        )
+                      )
+                    ],
                   ),
-                  ElevatedButton(
+                  SizedBox(height:20,),
+                  PlatformElevatedButton(
                     child: Text("Oluştur",style: TextStyle(color: Theme.of(context).scaffoldBackgroundColor),),
-                    style: ElevatedButton.styleFrom(
-                      primary: Theme.of(context).colorScheme.secondary,
+                    color: Theme.of(context).colorScheme.secondary,
+                    cupertino: (_, __) => CupertinoElevatedButtonData(
+                      borderRadius: BorderRadius.circular(20)
                     ),
                     onPressed: () async {
                       DialogUtils.createLoadingDialog(context, "Yükleniyor", "Oyun oluşturuluyor");
                       if(titleController.text.isNotEmpty && descController.text.isNotEmpty){
                         bool result = await gameGet.createGame(titleController.text, descController.text, selectedGameProvince, selectedGameType);
                         if(result){
-                          Navigator.of(Get.overlayContext!).pop();
+                          Navigator.of(Get.overlayContext!, rootNavigator: true).pop();
                           Get.back();
                         }else{
-                          Navigator.of(Get.overlayContext!).pop();
+                          Navigator.of(Get.overlayContext!, rootNavigator: true).pop();
                           Get.snackbar("Hata", "Bir hata oluştu");
                         }
                       }else{
-                        Navigator.of(Get.overlayContext!).pop();
+                        Navigator.of(Get.overlayContext!, rootNavigator: true).pop();
                         Get.snackbar("Hata", "Gerekli bilgileri doldurunuz lütfen");
                       }
                     },

@@ -3,6 +3,7 @@ import 'package:findgamemates/model/game_types.dart';
 import 'package:findgamemates/theme_data.dart';
 import 'package:findgamemates/utils/utils_data.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:get/get.dart';
 
 class GameScreenFilter extends StatefulWidget {
@@ -33,11 +34,17 @@ class _GameScreenFilterState extends State<GameScreenFilter> {
       children: [
         Padding(
           padding: const EdgeInsets.only(left: 6,right: 6,top: 6),
-          child: TextField(
-            decoration: const InputDecoration(
-              hintText: "Arama",
-              suffixIcon: Icon(Icons.search),
-              border: OutlineInputBorder()
+          child: PlatformTextField(
+            material: (_, __) => MaterialTextFieldData(
+              decoration: const InputDecoration(
+                  hintText: "Arama",
+                  suffixIcon: Icon(Icons.search),
+                  border: OutlineInputBorder()
+              ),
+            ),
+            cupertino: (_, __) => CupertinoTextFieldData(
+              placeholder: "Arama",
+              suffix: Icon(Icons.search)
             ),
             onChanged: (value){
               currFilter = value;
