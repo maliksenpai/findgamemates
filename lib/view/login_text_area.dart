@@ -46,6 +46,7 @@ class _LoginTextAreaState extends State<LoginTextArea> {
                 borderRadius: BorderRadius.circular(12),
               ),
               prefix: Icon(Icons.person),
+              placeholder: "Mail Adresi"
             ),
             validator: (value){
               if(value == null || value.isEmpty){
@@ -98,7 +99,8 @@ class _LoginTextAreaState extends State<LoginTextArea> {
                 children: [
                   Icon(Icons.security),
                 ],
-              )
+              ),
+              placeholder: "Şifre"
             ),
             autocorrect: false,
             obscureText: !widget.passwordVisible,

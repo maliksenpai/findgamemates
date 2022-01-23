@@ -33,62 +33,62 @@ class _CreateGameScreenState extends State<CreateGameScreen> {
     super.initState();
   }
 
+  void cupertinoGameTypeSelector(context){
+    showCupertinoModalPopup(
+        context: context,
+        builder: (_) => Container(
+          color: Colors.white,
+          width: 300,
+          alignment: Alignment.center,
+          height: MediaQuery.of(context).size.height * 0.2,
+          child: CupertinoPicker(
+            itemExtent: 30,
+            children: gameTypeList.map(
+                  (e) => DropdownMenuItem(
+                child: Center(
+                  child: Text(e == GameType.frp
+                      ? "FRP"
+                      : e == GameType.boardGame
+                      ? "Kutu oyunu"
+                      : "TCG"),
+                ),
+                value: e,
+              ),
+            ).toList(),
+            onSelectedItemChanged: (int index) {
+              setState(() {
+                selectedGameType = gameTypeList[index];
+              });
+            },
+          ),
+        )
+    );
+  }
+
+  void cupertinoProvienceSelector(){
+    showCupertinoModalPopup(
+        context: context,
+        builder: (_) => Container(
+          color: Colors.white,
+          width: 300,
+          alignment: Alignment.center,
+          height: MediaQuery.of(context).size.height * 0.4,
+          child: CupertinoPicker(
+            itemExtent: 30,
+            children: gameProvinceList.map((e) => Center(child: Text(e))).toList(),
+            onSelectedItemChanged: (int index) {
+              setState(() {
+                selectedGameProvince = gameProvinceList[index];
+              });
+            },
+          ),
+        )
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
 
-
-    void cupertinoGameTypeSelector(context){
-      showCupertinoModalPopup(
-          context: context,
-          builder: (_) => Container(
-            color: Colors.white,
-            width: 300,
-            alignment: Alignment.center,
-            height: MediaQuery.of(context).size.height * 0.2,
-            child: CupertinoPicker(
-              itemExtent: 30,
-              children: gameTypeList.map(
-                    (e) => DropdownMenuItem(
-                  child: Center(
-                    child: Text(e == GameType.frp
-                        ? "FRP"
-                        : e == GameType.boardGame
-                        ? "Kutu oyunu"
-                        : "TCG"),
-                  ),
-                  value: e,
-                ),
-              ).toList(),
-              onSelectedItemChanged: (int index) {
-                setState(() {
-                  selectedGameType = gameTypeList[index];
-                });
-              },
-            ),
-          )
-      );
-    }
-
-    void cupertinoProvienceSelector(){
-      showCupertinoModalPopup(
-          context: context,
-          builder: (_) => Container(
-            color: Colors.white,
-            width: 300,
-            alignment: Alignment.center,
-            height: MediaQuery.of(context).size.height * 0.4,
-            child: CupertinoPicker(
-              itemExtent: 30,
-              children: gameProvinceList.map((e) => Center(child: Text(e))).toList(),
-              onSelectedItemChanged: (int index) {
-                setState(() {
-                  selectedGameProvince = gameProvinceList[index];
-                });
-              },
-            ),
-          )
-      );
-    }
 
     return PlatformScaffold(
       appBar: PlatformAppBar(

@@ -94,6 +94,7 @@ class FirebaseUser extends GetxService{
       //await databaseReference.child(firebaseAuth.currentUser!.uid.toString()).child("username").set(username);
       var checkTakenUsername = await collectionReference.where('displayName',isEqualTo: username).get();
       if(checkTakenUsername.size == 0){
+        await firebaseAuth.currentUser?.updateDisplayName(username);
         await collectionReference.doc(firebaseAuth.currentUser!.uid.toString()).update({"displayName": username});
       }else{
         return false;

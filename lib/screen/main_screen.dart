@@ -95,6 +95,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
   void checkUsername() {
     if (userDatabase.getUser()!.displayName == null) {
       TextEditingController controller = TextEditingController();
+      bool isLoading = false;
       bool isErrorShort = false;
       bool isErrorTaken = false;
       bool isSuccess = false;
@@ -160,7 +161,10 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                     setState(() {
                       isErrorShort = true;
                     });
+                  } else if( isLoading) {
+
                   } else {
+                    isLoading = true;
                     bool response = await userGet.setUsername(controller.text);
                     if (response) {
                       setState(() {
@@ -169,7 +173,8 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                         isSuccess = true;
                       });
                       Future.delayed(Duration(seconds: 2), () {
-                        Navigator.of(Get.overlayContext!).pop();
+                        isLoading = false;
+                        Navigator.of(Get.overlayContext!, rootNavigator: true).pop();
                       });
                     } else {
                       setState(() {

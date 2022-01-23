@@ -135,7 +135,7 @@ class _LoginScreenState extends State<LoginScreen> {
     DialogUtils.createLoadingDialog(context, "Yükleniyor", "Uygulamaya giriş yapılmaya çalışılıyor");
     if( _formKey.currentState!.validate()){
       LoginResponse loginResponse = await userGet.loginUser(LoginRequest(mail: mailController.text, passHash: passController.text));
-      Navigator.of(Get.overlayContext!).pop();
+      Navigator.of(Get.overlayContext!, rootNavigator: true).pop();
       if(loginResponse == LoginResponse.successful){
         Get.offAll(const MainScreen());
       } else if(loginResponse == LoginResponse.userNotFound){
@@ -154,7 +154,7 @@ class _LoginScreenState extends State<LoginScreen> {
         Get.snackbar("Hata", "Hata oluştu");
       }
     }else{
-      Navigator.of(Get.overlayContext!).pop();
+      Navigator.of(Get.overlayContext!, rootNavigator: true).pop();
     }
   }
 

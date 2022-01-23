@@ -77,16 +77,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       barrierDismissible: false
                     );
                     bool logout = await userGet.logoutUser();
-                    Navigator.of(Get.overlayContext!).pop();
+                    Navigator.of(Get.overlayContext!, rootNavigator: true).pop();
                     if(logout){
-                      Navigator.pushReplacement(
-                          context,
-                          platformPageRoute(
-                            context: context,
-                            material: (_, __) => MaterialPageRouteData((_) => LoginScreen(), RouteSettings(), true, false),
-                            cupertino: (_,__) => CupertinoPageRouteData((_) => LoginScreen(), RouteSettings(), true, false)
-                          )
-                      );
+                      Get.off(const LoginScreen());
                     }else{
                       Get.snackbar("İşlem Başarısız", "Çıkış işlemi başarısız oldu");
                     }
