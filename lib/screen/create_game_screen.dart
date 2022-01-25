@@ -1,5 +1,4 @@
 import 'package:findgamemates/get/game_get.dart';
-import 'package:findgamemates/model/game_post.dart';
 import 'package:findgamemates/model/game_types.dart';
 import 'package:findgamemates/theme_data.dart';
 import 'package:findgamemates/utils/dialog_utils.dart';
@@ -21,7 +20,7 @@ class _CreateGameScreenState extends State<CreateGameScreen> {
   GameGet gameGet = Get.put(GameGet());
   TextEditingController titleController = TextEditingController();
   TextEditingController descController = TextEditingController();
-  List<GameType> gameTypeList = GameType.values.sublist(0,3);
+  List<GameType> gameTypeList = GameType.values.sublist(1,4);
   late GameType selectedGameType;
   List<String> gameProvinceList= UtilData.provienceList;
   late String selectedGameProvince;
@@ -93,10 +92,9 @@ class _CreateGameScreenState extends State<CreateGameScreen> {
     return PlatformScaffold(
       appBar: PlatformAppBar(
         title: Text("Oyun Yaratma",style: TextStyle(color: Colors.white),),
-        backgroundColor: CustomThemeData.primaryColor,
+        backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
         cupertino: (_, __) => CupertinoNavigationBarData(
             brightness: Brightness.dark,
-
         ),
       ),
       body: Center(
@@ -125,7 +123,7 @@ class _CreateGameScreenState extends State<CreateGameScreen> {
                         Material(
                           child: Container(
                               width: MediaQuery.of(context).size.width*0.4,
-                              color: CustomThemeData.backgroundColor,
+                              color: Theme.of(context).scaffoldBackgroundColor,
                               alignment: Alignment.center,
                               child: PlatformText("Oyun ismi",)
                           ),
@@ -150,7 +148,7 @@ class _CreateGameScreenState extends State<CreateGameScreen> {
                             child: Container(
                                 width: MediaQuery.of(context).size.width*0.4,
                                 alignment: Alignment.center,
-                                color: CustomThemeData.backgroundColor,
+                                color: Theme.of(context).scaffoldBackgroundColor,
                                 child: PlatformText("Oyun açıklaması"),
                             )
                         ),
@@ -179,7 +177,7 @@ class _CreateGameScreenState extends State<CreateGameScreen> {
                           child: Container(
                               width: MediaQuery.of(context).size.width*0.4,
                               alignment: Alignment.center,
-                              color: CustomThemeData.backgroundColor,
+                              color: Theme.of(context).scaffoldBackgroundColor,
                               child: PlatformText("Oyun türü"),
                           ),
                         ),
@@ -236,7 +234,7 @@ class _CreateGameScreenState extends State<CreateGameScreen> {
                         child: Container(
                           width: MediaQuery.of(context).size.width*0.4,
                           alignment: Alignment.center,
-                          color: CustomThemeData.backgroundColor,
+                          color: Theme.of(context).scaffoldBackgroundColor,
                           child: PlatformText("Oyun Konumu"),
                         ),
                       ),

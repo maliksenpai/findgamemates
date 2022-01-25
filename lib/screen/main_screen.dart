@@ -37,10 +37,10 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
     return PlatformScaffold(
       appBar: PlatformAppBar(
         title: const Text(
-          "Masa Oyun M8'leri",
+          "Aslan Ağızı Hanı",
           style: TextStyle(color: Colors.white),
         ),
-        backgroundColor: CustomThemeData.primaryColor,
+        backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
         cupertino: (_, __) => CupertinoNavigationBarData(
           brightness: Brightness.dark
         ),
@@ -60,7 +60,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
             TabItem(icon: Icons.home, title: "Ana Ekran"),
             TabItem(icon: Icons.person, title: "Profil"),
           ],
-          backgroundColor: Theme.of(context).primaryColor,
+          backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
           onTap: (i) {
             setState(() {
               tabController.index = i;
@@ -71,7 +71,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
       cupertino: (_, __) => CupertinoPageScaffoldData(
         body: CupertinoTabScaffold(
           tabBar: CupertinoTabBar(
-            backgroundColor: Theme.of(context).primaryColor,
+            backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
             currentIndex: iosTabBarIndex,
             activeColor: CustomThemeData.accentColor,
             inactiveColor: Colors.white,

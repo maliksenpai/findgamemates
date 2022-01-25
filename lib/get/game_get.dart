@@ -41,7 +41,7 @@ class GameGet extends GetxController {
       lastPulledPostCount = iterable.length;
       postList.value.addAll(iterable);
     }
-    postList.value.sort((a,b) => a.createTime.compareTo(b.createTime));
+    //postList.value.sort((a,b) => a.createTime.compareTo(b.createTime));
     notFilteredList.addAll(postList.value);
   }
 

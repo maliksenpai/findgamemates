@@ -68,6 +68,7 @@ class _GameDetailScreenState extends State<GameDetailScreen> {
             child: ListView(
               children: [
                 Material(
+                  color: Theme.of(context).scaffoldBackgroundColor,
                   child: PlatformText(
                     widget.gamePost.title,
                     style: TextStyle(

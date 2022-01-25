@@ -32,6 +32,9 @@ class CustomThemeData{
       backgroundColor: primaryColor,
     ),
     textTheme: GoogleFonts.openSansTextTheme(),
+    tabBarTheme: TabBarTheme(
+      labelColor: cardColor,
+    )
   );
 
   final ThemeData darkTheme = ThemeData(
@@ -39,6 +42,14 @@ class CustomThemeData{
     buttonTheme: ButtonThemeData(
       buttonColor: accentColor,
     ),
+    textTheme: const TextTheme(
+      bodyText1: TextStyle(),
+      bodyText2: TextStyle(),
+    ).apply(
+      bodyColor: Colors.white,
+      displayColor: Colors.white,
+    ),
+    primaryColor: primaryColor,
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
           primary: accentColor,
@@ -47,7 +58,7 @@ class CustomThemeData{
           )
       ),
     ),
-    textTheme: GoogleFonts.openSansTextTheme()
+    //textTheme: GoogleFonts.openSansTextTheme()
   );
 
 }

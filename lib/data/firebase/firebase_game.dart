@@ -24,6 +24,8 @@ class FirebaseGame extends GetxService{
   UserDatabase userDatabase = Get.put(UserDatabase());
   FirebaseLog firebaseLog = Get.put(FirebaseLog());
 
+  late DocumentSnapshot lastGameSnapshot;
+
   @override
   void onInit() {
     gameFirestore = FirebaseFirestore.instance.collection("games");
@@ -49,12 +51,9 @@ class FirebaseGame extends GetxService{
   Future<List<GamePost>> getGameList(String? filter, GameType? gameType, String? provience, String? lastId) async {
     try{
       List<GamePost> gameList = [];
-      //var query = databaseReference.startAt(lastId).orderByChild("active").equalTo(true);
-      //var query = databaseReference.orderByKey().startAt(lastId);
       var query = gameFirestore.where('active', isEqualTo: true);
       if(lastId !=null){
-        query = query.startAt([lastId]);
-        //query = query.limitToLast(10)
+        query = query.startAtDocument(lastGameSnapshot);
       }
       query = query.limit(10);
       await query.get().then((value) {
@@ -63,6 +62,7 @@ class FirebaseGame extends GetxService{
           GamePost gamePost = GamePost.fromJson(data);
           gameList.add(gamePost);
         }
+        lastGameSnapshot = mapEntry.last;
       });
       return gameList;
     }catch(e){
