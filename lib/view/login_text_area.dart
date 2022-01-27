@@ -28,6 +28,7 @@ class _LoginTextAreaState extends State<LoginTextArea> {
         SizedBox(
           width: MediaQuery.of(context).size.width * 0.7,
           child: PlatformTextFormField(
+            style: TextStyle(color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black),
             controller: widget.mailController,
             material: (_, __) => MaterialTextFormFieldData(
               decoration: InputDecoration(
@@ -68,6 +69,7 @@ class _LoginTextAreaState extends State<LoginTextArea> {
           width: MediaQuery.of(context).size.width * 0.7,
           child: PlatformTextFormField(
             controller: widget.passwordController,
+            style: TextStyle(color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black),
             material: (_, __) => MaterialTextFormFieldData(
               decoration: InputDecoration(
                 border: OutlineInputBorder(borderRadius: BorderRadius.circular(20), borderSide: BorderSide(color: CustomThemeData.primaryColor)),
@@ -95,10 +97,15 @@ class _LoginTextAreaState extends State<LoginTextArea> {
                 border: Border.all(color: CustomThemeData.primaryColor,),
                 borderRadius: BorderRadius.circular(12),
               ),
-              prefix: Row(
-                children: [
-                  Icon(Icons.security),
-                ],
+              prefix: GestureDetector(
+                child: Icon(
+                  widget.passwordVisible ? Icons.visibility : Icons.visibility_off,
+                ),
+                onTap: () {
+                  setState(() {
+                    widget.passwordVisible = !widget.passwordVisible;
+                  });
+                },
               ),
               placeholder: "Şifre"
             ),

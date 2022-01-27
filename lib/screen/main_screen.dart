@@ -42,7 +42,8 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
         ),
         backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
         cupertino: (_, __) => CupertinoNavigationBarData(
-          brightness: Brightness.dark
+          brightness: Brightness.dark,
+          backgroundColor: Theme.of(context).brightness == Brightness.light ? CustomThemeData.primaryColor : Colors.black
         ),
       ),
       body: SafeArea(
@@ -71,7 +72,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
       cupertino: (_, __) => CupertinoPageScaffoldData(
         body: CupertinoTabScaffold(
           tabBar: CupertinoTabBar(
-            backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
+            backgroundColor: Theme.of(context).brightness == Brightness.light ? CustomThemeData.primaryColor : Colors.black,
             currentIndex: iosTabBarIndex,
             activeColor: CustomThemeData.accentColor,
             inactiveColor: Colors.white,
@@ -161,8 +162,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                     setState(() {
                       isErrorShort = true;
                     });
-                  } else if( isLoading) {
-
+                  } else if (isLoading) {
                   } else {
                     isLoading = true;
                     bool response = await userGet.setUsername(controller.text);

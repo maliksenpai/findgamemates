@@ -50,6 +50,9 @@ class CustomThemeData{
       displayColor: Colors.white,
     ),
     primaryColor: primaryColor,
+    appBarTheme: AppBarTheme(
+      backgroundColor: primaryColor,
+    ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
           primary: accentColor,

@@ -95,6 +95,7 @@ class _CreateGameScreenState extends State<CreateGameScreen> {
         backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
         cupertino: (_, __) => CupertinoNavigationBarData(
             brightness: Brightness.dark,
+            backgroundColor: Theme.of(context).brightness == Brightness.light ? CustomThemeData.primaryColor : Colors.black
         ),
       ),
       body: Center(
@@ -131,6 +132,7 @@ class _CreateGameScreenState extends State<CreateGameScreen> {
                         SizedBox(
                           width: MediaQuery.of(context).size.width*0.4,
                           child: PlatformTextField(
+                            style: TextStyle(color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black),
                             controller: titleController,
                             maxLines: 1,
                             maxLength: 20,
@@ -158,6 +160,7 @@ class _CreateGameScreenState extends State<CreateGameScreen> {
                             controller: descController,
                             maxLines: 10,
                             maxLength: 500,
+                            style: TextStyle(color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black),
                             material: (_, __) => MaterialTextFieldData(
                               decoration: const InputDecoration(
                                   border: OutlineInputBorder(borderSide: BorderSide(color: Colors.blue, width: 1))
@@ -211,7 +214,7 @@ class _CreateGameScreenState extends State<CreateGameScreen> {
                                 width: MediaQuery.of(context).size.width*0.4,
                                 alignment: Alignment.center,
                                 padding: const EdgeInsets.symmetric(horizontal: 30),
-                                color: Colors.white,
+                                color: Theme.of(context).brightness == Brightness.light ? Colors.white : Colors.black,
                                 child: Text(selectedGameType == GameType.frp
                                     ? "FRP"
                                     : selectedGameType == GameType.boardGame
@@ -257,7 +260,7 @@ class _CreateGameScreenState extends State<CreateGameScreen> {
                               width: MediaQuery.of(context).size.width*0.4,
                               alignment: Alignment.center,
                               padding: const EdgeInsets.symmetric(horizontal: 30),
-                              color: Colors.white,
+                              color: Theme.of(context).brightness == Brightness.light ? Colors.white : Colors.black,
                               child: Text(selectedGameProvince),
                             ),
                           ),

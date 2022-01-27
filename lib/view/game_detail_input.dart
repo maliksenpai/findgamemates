@@ -33,6 +33,7 @@ class _GameDetailInputState extends State<GameDetailInput> {
                 controller: inputController,
                 keyboardType: TextInputType.multiline,
                 maxLines: null,
+                style: TextStyle(color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black),
                 material: (_, __) => MaterialTextFieldData(
                   decoration: const InputDecoration(
                       hintText: "Yorum",

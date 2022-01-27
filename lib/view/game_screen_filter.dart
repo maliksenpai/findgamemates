@@ -102,6 +102,7 @@ class _GameScreenFilterState extends State<GameScreenFilter> {
         Padding(
           padding: const EdgeInsets.only(left: 6,right: 6,top: 6),
           child: PlatformTextField(
+            style: TextStyle(color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black),
             material: (_, __) => MaterialTextFieldData(
               decoration: const InputDecoration(
                   hintText: "Arama",
@@ -149,7 +150,7 @@ class _GameScreenFilterState extends State<GameScreenFilter> {
                             children: [
                               Material(
                                 child: Container(
-                                  color: CustomThemeData.backgroundColor,
+                                  color: Theme.of(context).scaffoldBackgroundColor,
                                   child: PlatformText(
                                     selectedGameProvince == null ? "Oyun Lokasyonu" : selectedGameProvince!,
                                   ),
@@ -204,7 +205,7 @@ class _GameScreenFilterState extends State<GameScreenFilter> {
                               children: [
                                 Material(
                                   child: Container(
-                                    color: CustomThemeData.backgroundColor,
+                                    color: Theme.of(context).scaffoldBackgroundColor,
                                     child: PlatformText(
                                         selectedGameType == null ?
                                         "Oyun Türü"

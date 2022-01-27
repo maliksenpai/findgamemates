@@ -52,7 +52,7 @@ class _GameDetailScreenState extends State<GameDetailScreen> {
       appBar: PlatformAppBar(
         title: Text(widget.gamePost.title, style: TextStyle(color: Colors.white),),
         cupertino: (_, __) => CupertinoNavigationBarData(
-          backgroundColor: CustomThemeData.primaryColor,
+            backgroundColor: Theme.of(context).brightness == Brightness.light ? CustomThemeData.primaryColor : Colors.black,
           brightness: Brightness.dark,
           noMaterialParent: true
         ),

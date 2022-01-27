@@ -39,15 +39,16 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return PlatformScaffold(
-      backgroundColor: CustomThemeData.backgroundColor,
       appBar: PlatformAppBar(
-        title: const Text("Giriş Ekranı"),
+        title: const Text("Giriş Ekranı",style: TextStyle(color: Colors.white),),
         material: (_, __) => MaterialAppBarData(
           elevation: 0
         ),
+        backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
         cupertino: (_, __) => CupertinoNavigationBarData(
-          backgroundColor: CustomThemeData.primaryColor,
-          border: Border.all(width: 0, color: CustomThemeData.primaryColor),
+          backgroundColor: Theme.of(context).brightness == Brightness.light ? CustomThemeData.primaryColor : Colors.black,
+          border: Border.all(width: 0, color: Theme.of(context).brightness == Brightness.light ? CustomThemeData.primaryColor : Colors.black),
+          brightness: Brightness.dark,
           transitionBetweenRoutes: true
         ),
       ),
@@ -65,14 +66,14 @@ class _LoginScreenState extends State<LoginScreen> {
                     clipper: WaveClipperTwo(),
                     child: Container(
                       height: MediaQuery.of(context).size.height * 0.1,
-                      color: CustomThemeData.primaryColor,
+                      color: Theme.of(context).brightness == Brightness.light ? CustomThemeData.primaryColor : Colors.black,
                     ),
                   ),
                   Container(
                     height: MediaQuery.of(context).size.height * 0.1,
                     width: MediaQuery.of(context).size.width * 0.5,
                     child: Material(
-                      color: CustomThemeData.backgroundColor,
+                      color: Theme.of(context).scaffoldBackgroundColor,
                       child: FittedBox(
                         fit: BoxFit.contain,
                         child: Text(
@@ -100,7 +101,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       SizedBox(height: 20,),
                       Material(
-                        color: CustomThemeData.backgroundColor,
+                        color: Theme.of(context).scaffoldBackgroundColor,
                         child: SizedBox(
                           width: MediaQuery.of(context).size.width * 0.7,
                           child: Text(
@@ -118,7 +119,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     clipper: WaveClipperTwo(reverse: true),
                     child: Container(
                       height: MediaQuery.of(context).size.height * 0.1,
-                      color: CustomThemeData.primaryColor,
+                      color: Theme.of(context).brightness == Brightness.light ? CustomThemeData.primaryColor : Colors.black,
                     ),
                   )
                 ],
