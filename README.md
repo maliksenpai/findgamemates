@@ -9,7 +9,7 @@ The purpose of the Aslan Ağızı Hanı application is for users to create games
  State management is made with GetX. With this structure, which is both flexible and restrictive, the project has no problems works somehow.
  
  
- <h5> <b> Application Feature</b> </h5>
+ <h1> <b> Application Feature</b> </h1>
  <ul>
     <li> Authority with Firebase </li>
     <li> Create post </li>
@@ -20,7 +20,7 @@ The purpose of the Aslan Ağızı Hanı application is for users to create games
     <li> Logs user operations </li>
  </ul>
  
- <h5> <b> Application Tools </b> </h5>
+ <h1> <b> Application Tools </b> </h1>
  <ul>
     <li> Flutter </li>
     <li> Get </li>
