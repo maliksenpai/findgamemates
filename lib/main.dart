@@ -51,7 +51,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     SettingsDatabase settingsDatabase = Get.put(SettingsDatabase());
     return PlatformApp(
+      debugShowCheckedModeBanner: false,
       home: GetMaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         initialBinding: InitialBindings(),
         routes: {

@@ -29,4 +29,11 @@ The purpose of the Aslan Ağızı Hanı application is for users to create games
     <li> Google Fonts </li>
  </ul>
  
+ <h1> <b> Application Screenshots for different devices </b> </h1>
+ 
+ <img src="https://github.com/maliksenpai/findgamemates/blob/master/images/1.png?raw=true" width="300px" />
+ <img src="https://github.com/maliksenpai/findgamemates/blob/master/images/2.png?raw=true" width="300px" />
+ <img src="https://github.com/maliksenpai/findgamemates/blob/master/images/3.png?raw=true" width="300px" />
+ <img src="https://github.com/maliksenpai/findgamemates/blob/master/images/4.png?raw=true" width="300px" />
+ <img src="https://github.com/maliksenpai/findgamemates/blob/master/images/5.png?raw=true" width="300px" />
  

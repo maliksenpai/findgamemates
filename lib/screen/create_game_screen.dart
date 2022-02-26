@@ -95,7 +95,7 @@ class _CreateGameScreenState extends State<CreateGameScreen> {
         backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
         cupertino: (_, __) => CupertinoNavigationBarData(
             brightness: Brightness.dark,
-            backgroundColor: Theme.of(context).brightness == Brightness.light ? CustomThemeData.primaryColor : Colors.black
+            backgroundColor: Theme.of(context).appBarTheme.backgroundColor
         ),
       ),
       body: Center(

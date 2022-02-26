@@ -46,8 +46,7 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
         backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
         cupertino: (_, __) => CupertinoNavigationBarData(
-          backgroundColor: Theme.of(context).brightness == Brightness.light ? CustomThemeData.primaryColor : Colors.black,
-          border: Border.all(width: 0, color: Theme.of(context).brightness == Brightness.light ? CustomThemeData.primaryColor : Colors.black),
+          border: Border.all(width: 0, color: Theme.of(context).appBarTheme.backgroundColor!),
           brightness: Brightness.dark,
           transitionBetweenRoutes: true
         ),
@@ -66,7 +65,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     clipper: WaveClipperTwo(),
                     child: Container(
                       height: MediaQuery.of(context).size.height * 0.1,
-                      color: Theme.of(context).brightness == Brightness.light ? CustomThemeData.primaryColor : Colors.black,
+                      color: Theme.of(context).appBarTheme.backgroundColor,
                     ),
                   ),
                   Container(
@@ -119,7 +118,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     clipper: WaveClipperTwo(reverse: true),
                     child: Container(
                       height: MediaQuery.of(context).size.height * 0.1,
-                      color: Theme.of(context).brightness == Brightness.light ? CustomThemeData.primaryColor : Colors.black,
+                      color: Theme.of(context).appBarTheme.backgroundColor,
                     ),
                   )
                 ],

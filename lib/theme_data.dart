@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -34,7 +35,7 @@ class CustomThemeData{
     textTheme: GoogleFonts.openSansTextTheme(),
     tabBarTheme: TabBarTheme(
       labelColor: cardColor,
-    )
+    ),
   );
 
   final ThemeData darkTheme = ThemeData(
@@ -51,7 +52,7 @@ class CustomThemeData{
     ),
     primaryColor: primaryColor,
     appBarTheme: AppBarTheme(
-      backgroundColor: primaryColor,
+      backgroundColor: Colors.black,
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
@@ -61,6 +62,9 @@ class CustomThemeData{
           )
       ),
     ),
+    cupertinoOverrideTheme: NoDefaultCupertinoThemeData(
+      barBackgroundColor: Colors.black,
+    )
     //textTheme: GoogleFonts.openSansTextTheme()
   );
 

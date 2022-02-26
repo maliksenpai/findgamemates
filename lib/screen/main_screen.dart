@@ -43,7 +43,6 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
         backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
         cupertino: (_, __) => CupertinoNavigationBarData(
           brightness: Brightness.dark,
-          backgroundColor: Theme.of(context).brightness == Brightness.light ? CustomThemeData.primaryColor : Colors.black
         ),
       ),
       body: SafeArea(
@@ -72,7 +71,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
       cupertino: (_, __) => CupertinoPageScaffoldData(
         body: CupertinoTabScaffold(
           tabBar: CupertinoTabBar(
-            backgroundColor: Theme.of(context).brightness == Brightness.light ? CustomThemeData.primaryColor : Colors.black,
+            backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
             currentIndex: iosTabBarIndex,
             activeColor: CustomThemeData.accentColor,
             inactiveColor: Colors.white,
