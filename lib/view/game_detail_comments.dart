@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class GameDetailComments extends StatefulWidget {
-  String gamePostId;
+  final String gamePostId;
 
-  GameDetailComments({Key? key, required this.gamePostId}) : super(key: key);
+  const GameDetailComments({Key? key, required this.gamePostId}) : super(key: key);
 
   @override
   _GameDetailCommentsState createState() => _GameDetailCommentsState();
@@ -15,7 +15,7 @@ class GameDetailComments extends StatefulWidget {
 
 class _GameDetailCommentsState extends State<GameDetailComments> {
   List<GameComment>? comments;
-  GameGet gameGet = Get.put(GameGet());
+  final GameGet gameGet = Get.put(GameGet());
 
   @override
   void initState() {
@@ -38,7 +38,9 @@ class _GameDetailCommentsState extends State<GameDetailComments> {
           child: SizedBox(
             height: MediaQuery.of(context).size.height * 0.1,
             width: MediaQuery.of(context).size.width * 0.1,
-            child: const CircularProgressIndicator(strokeWidth: 4,),
+            child: const CircularProgressIndicator(
+              strokeWidth: 4,
+            ),
           ),
         );
       } else {
@@ -46,8 +48,6 @@ class _GameDetailCommentsState extends State<GameDetailComments> {
           return Container();
         } else {
           return ListView.builder(
-            physics: NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
             itemCount: gameGet.currComments.value!.length,
             itemBuilder: (context, index) {
               return CommentWidget(

@@ -15,18 +15,20 @@ class GameScreenList extends StatefulWidget {
 }
 
 class _GameScreenListState extends State<GameScreenList> {
-  GameGet gameGet = Get.put(GameGet());
-  ScrollController controller = ScrollController();
+  final GameGet gameGet = Get.put(GameGet());
+  final ScrollController controller = ScrollController();
 
   @override
   Widget build(BuildContext context) {
     return Obx(
       () => NotificationListener(
-        onNotification: (t){
-          if(t is ScrollEndNotification){
-            if(!gameGet.loading.value){
+        onNotification: (t) {
+          if (t is ScrollEndNotification) {
+            if (!gameGet.loading.value) {
               gameGet.toggleLoading(true);
-              gameGet.getMoreGames(gameGet.postList.value.last.id).whenComplete(() => gameGet.toggleLoading(false));
+              gameGet
+                  .getMoreGames(gameGet.postList.value.last.id)
+                  .whenComplete(() => gameGet.toggleLoading(false));
             }
           }
           return false;
@@ -99,7 +101,10 @@ class _GameScreenListState extends State<GameScreenList> {
                         ],
                       ),
                       onTap: () {
-                        Get.to(() => GameDetailScreen(gamePost: post, key: UniqueKey(),));
+                        Get.to(() => GameDetailScreen(
+                              gamePost: post,
+                              key: UniqueKey(),
+                            ));
                       },
                     ),
                   ),
@@ -108,16 +113,20 @@ class _GameScreenListState extends State<GameScreenList> {
             ),
             Container(
               padding: const EdgeInsets.all(20),
-              child: gameGet.loading.value ?
-                Center(child: SizedBox(width:100,height: 30,child: LoadingIndicator(
-                  indicatorType: Indicator.ballPulseRise,
-                  colors: [
-                    CustomThemeData.primaryColor,
-                    CustomThemeData.accentColor,
-                    CustomThemeData.cardColor
-                  ],
-                ))) :
-                Container(),
+              child: gameGet.loading.value
+                  ? Center(
+                      child: SizedBox(
+                          width: 100,
+                          height: 30,
+                          child: LoadingIndicator(
+                            indicatorType: Indicator.ballPulseRise,
+                            colors: [
+                              CustomThemeData.primaryColor,
+                              CustomThemeData.accentColor,
+                              CustomThemeData.cardColor
+                            ],
+                          )))
+                  : Container(),
             )
           ],
         ),

@@ -8,17 +8,15 @@ import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:intl/intl.dart';
 
 class GameDetailScreen extends StatefulWidget {
+  final GamePost gamePost;
 
-  GamePost gamePost;
-
-  GameDetailScreen({Key? key, required this.gamePost}) : super(key: key);
+  const GameDetailScreen({Key? key, required this.gamePost}) : super(key: key);
 
   @override
   _GameDetailScreenState createState() => _GameDetailScreenState();
 }
 
 class _GameDetailScreenState extends State<GameDetailScreen> {
-
   late String gameType;
 
   @override
@@ -26,10 +24,10 @@ class _GameDetailScreenState extends State<GameDetailScreen> {
     gameType = widget.gamePost.gameType == GameType.frp
         ? "FRP"
         : widget.gamePost.gameType == GameType.boardGame
-        ? "Kutu oyunu"
-        : widget.gamePost.gameType == GameType.tcg
-        ? "TCG"
-        : "Hata";
+            ? "Kutu oyunu"
+            : widget.gamePost.gameType == GameType.tcg
+                ? "TCG"
+                : "Hata";
     super.initState();
   }
 
@@ -38,10 +36,10 @@ class _GameDetailScreenState extends State<GameDetailScreen> {
     gameType = widget.gamePost.gameType == GameType.frp
         ? "FRP"
         : widget.gamePost.gameType == GameType.boardGame
-        ? "Kutu oyunu"
-        : widget.gamePost.gameType == GameType.tcg
-        ? "TCG"
-        : "Hata";
+            ? "Kutu oyunu"
+            : widget.gamePost.gameType == GameType.tcg
+                ? "TCG"
+                : "Hata";
     super.didChangeDependencies();
   }
 
@@ -50,22 +48,24 @@ class _GameDetailScreenState extends State<GameDetailScreen> {
     return PlatformScaffold(
       key: widget.key,
       appBar: PlatformAppBar(
-        title: Text(widget.gamePost.title, style: TextStyle(color: Colors.white),),
+        title: Text(
+          widget.gamePost.title,
+          style: const TextStyle(color: Colors.white),
+        ),
         cupertino: (_, __) => CupertinoNavigationBarData(
             backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
-          brightness: Brightness.dark,
-          noMaterialParent: true
-        ),
+            brightness: Brightness.dark,
+            noMaterialParent: true),
       ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: NotificationListener<OverscrollIndicatorNotification>(
-            onNotification: (overScroll){
-              overScroll.disallowGlow();
+            onNotification: (overScroll) {
+              overScroll.disallowIndicator();
               return false;
             },
-            child: ListView(
+            child: Column(
               children: [
                 Material(
                   color: Theme.of(context).scaffoldBackgroundColor,
@@ -92,18 +92,24 @@ class _GameDetailScreenState extends State<GameDetailScreen> {
                         ),
                       ),
                       Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 12,vertical: 4),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 12, vertical: 4),
                         alignment: Alignment.bottomRight,
                         child: Text(
                           widget.gamePost.createrName,
-                          style: TextStyle(color: Theme.of(context).primaryColor,fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                              color: Theme.of(context).primaryColor,
+                              fontWeight: FontWeight.bold),
                         ),
                       ),
                       Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 12,vertical: 4),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 12, vertical: 4),
                         alignment: Alignment.bottomRight,
                         child: Text(
-                          DateFormat("dd/MM/yyyy HH:mm").format(DateTime.parse(widget.gamePost.createTime).toLocal()),
+                          DateFormat("dd/MM/yyyy HH:mm").format(
+                              DateTime.parse(widget.gamePost.createTime)
+                                  .toLocal()),
                           style: const TextStyle(color: Colors.grey),
                         ),
                       ),
@@ -157,13 +163,17 @@ class _GameDetailScreenState extends State<GameDetailScreen> {
                     ],
                   ),
                 ),
-                Card(
-                  elevation: 12,
-                  child: GameDetailComments(gamePostId: widget.gamePost.id, key: UniqueKey(),),
+                Expanded(
+                  child: GameDetailComments(
+                    gamePostId: widget.gamePost.id,
+                    key: UniqueKey(),
+                  ),
                 ),
                 Card(
                   elevation: 12,
-                  child: GameDetailInput(postId: widget.gamePost.id,),
+                  child: GameDetailInput(
+                    postId: widget.gamePost.id,
+                  ),
                 )
               ],
             ),

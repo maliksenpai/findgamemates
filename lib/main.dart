@@ -23,21 +23,22 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   InitialBindings().dependencies();
+  //debugRepaintRainbowEnabled = true;
   runApp(const MyApp());
-}  
+}
 
-Future licenses() async{
+Future licenses() async {
   LicenseRegistry.addLicense(() async* {
     final license = await rootBundle.loadString('google_fonts/OFL.txt');
     yield LicenseEntryWithLineBreaks(['google_fonts'], license);
   });
 }
 
-void registerAdapters(){
+void registerAdapters() {
   Hive.registerAdapter(AppUserAdapter());
 }
 
-Future initHiveBoxes() async{
+Future initHiveBoxes() async {
   await Hive.initFlutter();
   await Hive.openBox("user");
   await Hive.openBox("settings");
@@ -57,11 +58,13 @@ class MyApp extends StatelessWidget {
         title: 'Flutter Demo',
         initialBinding: InitialBindings(),
         routes: {
-          '/games' : (context) => const GamesScreen(),
-          '/settings' : (context) => const SettingsScreen(),
-          'profile' : (context) => const ProfileScreen()
+          '/games': (context) => const GamesScreen(),
+          '/settings': (context) => const SettingsScreen(),
+          'profile': (context) => const ProfileScreen()
         },
-        theme: settingsDatabase.isDarkMode() ? CustomThemeData().darkTheme : CustomThemeData().lightTheme,
+        theme: settingsDatabase.isDarkMode()
+            ? CustomThemeData().darkTheme
+            : CustomThemeData().lightTheme,
         home: const IntroScreen(),
       ),
     );

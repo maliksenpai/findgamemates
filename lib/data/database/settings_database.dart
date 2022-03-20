@@ -1,8 +1,7 @@
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 
-class SettingsDatabase extends GetxService{
-
+class SettingsDatabase extends GetxService {
   late Box applicationBox;
 
   @override
@@ -11,12 +10,11 @@ class SettingsDatabase extends GetxService{
     super.onInit();
   }
 
-  bool isDarkMode(){
+  bool isDarkMode() {
     return applicationBox.get("theme", defaultValue: false);
   }
 
-  void changeTheme(bool bool){
+  void changeTheme(bool bool) {
     applicationBox.put("theme", bool);
   }
-
 }

@@ -15,11 +15,10 @@ class GameScreenFilter extends StatefulWidget {
 }
 
 class _GameScreenFilterState extends State<GameScreenFilter> {
-
-  GameGet gameGet = Get.put(GameGet());
-  List<GameType> gameTypeList = GameType.values;
+  final GameGet gameGet = Get.put(GameGet());
+  final List<GameType> gameTypeList = GameType.values;
   GameType? selectedGameType;
-  List<String> gameProvinceList= ["Hepsi", ...UtilData.provienceList];
+  final List<String> gameProvinceList = ["Hepsi", ...UtilData.provienceList];
   String? selectedGameProvince;
   String currFilter = "";
 
@@ -28,71 +27,74 @@ class _GameScreenFilterState extends State<GameScreenFilter> {
     super.initState();
   }
 
-  void cupertinoGameTypeSelector(context){
+  void cupertinoGameTypeSelector(context) {
     setState(() {
       selectedGameType = gameTypeList[0];
     });
     showCupertinoModalPopup(
         context: context,
         builder: (_) => Container(
-          color: Colors.white,
-          width: 300,
-          alignment: Alignment.center,
-          height: MediaQuery.of(context).size.height * 0.2,
-          child: CupertinoPicker(
-            itemExtent: 30,
-            children: gameTypeList.map(
-                  (e) => DropdownMenuItem(
-                child: Center(
-                  child: Text(e == GameType.frp
-                      ? "FRP"
-                      : e == GameType.boardGame
-                      ? "Kutu oyunu"
-                      : e == GameType.tcg
-                      ? "TCG"
-                      : "Hepsi"),
-                ),
-                value: e,
+              color: Colors.white,
+              width: 300,
+              alignment: Alignment.center,
+              height: MediaQuery.of(context).size.height * 0.2,
+              child: CupertinoPicker(
+                itemExtent: 30,
+                children: gameTypeList
+                    .map(
+                      (e) => DropdownMenuItem(
+                        child: Center(
+                          child: Text(e == GameType.frp
+                              ? "FRP"
+                              : e == GameType.boardGame
+                                  ? "Kutu oyunu"
+                                  : e == GameType.tcg
+                                      ? "TCG"
+                                      : "Hepsi"),
+                        ),
+                        value: e,
+                      ),
+                    )
+                    .toList(),
+                onSelectedItemChanged: (int index) {
+                  setState(() {
+                    selectedGameType = gameTypeList[index];
+                  });
+                },
               ),
-            ).toList(),
-            onSelectedItemChanged: (int index) {
-              setState(() {
-                selectedGameType = gameTypeList[index];
-              });
-            },
-          ),
-        )
-    ).then((value) => {
-      gameGet.filterGameList(currFilter, selectedGameType, selectedGameProvince)
-    });
+            )).then((value) => {
+          gameGet.filterGameList(
+              currFilter, selectedGameType, selectedGameProvince)
+        });
   }
 
-  void cupertinoProvienceSelector(){
+  void cupertinoProvienceSelector() {
     setState(() {
       selectedGameProvince = gameProvinceList[0];
     });
     showCupertinoModalPopup(
         context: context,
         builder: (_) => Container(
-          color: Colors.white,
-          width: 300,
-          alignment: Alignment.center,
-          height: MediaQuery.of(context).size.height * 0.4,
-          child: CupertinoPicker(
-            itemExtent: 30,
-            children: gameProvinceList.map((e) => Center(child: Text(e))).toList(),
-            onSelectedItemChanged: (int index) {
-              setState(() {
-                selectedGameProvince = gameProvinceList[index];
-              });
-            },
-          ),
-        )
-    ).then((value) => {
-      gameGet.filterGameList(currFilter, selectedGameType, selectedGameProvince)
-    });;
+              color: Colors.white,
+              width: 300,
+              alignment: Alignment.center,
+              height: MediaQuery.of(context).size.height * 0.4,
+              child: CupertinoPicker(
+                itemExtent: 30,
+                children: gameProvinceList
+                    .map((e) => Center(child: Text(e)))
+                    .toList(),
+                onSelectedItemChanged: (int index) {
+                  setState(() {
+                    selectedGameProvince = gameProvinceList[index];
+                  });
+                },
+              ),
+            )).then((value) => {
+          gameGet.filterGameList(
+              currFilter, selectedGameType, selectedGameProvince)
+        });
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -100,48 +102,58 @@ class _GameScreenFilterState extends State<GameScreenFilter> {
       mainAxisSize: MainAxisSize.min,
       children: [
         Padding(
-          padding: const EdgeInsets.only(left: 6,right: 6,top: 6),
+          padding: const EdgeInsets.only(left: 6, right: 6, top: 6),
           child: PlatformTextField(
-            style: TextStyle(color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black),
+            style: TextStyle(
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.white
+                    : Colors.black),
             material: (_, __) => MaterialTextFieldData(
               decoration: const InputDecoration(
                   hintText: "Arama",
                   suffixIcon: Icon(Icons.search),
-                  border: OutlineInputBorder()
-              ),
+                  border: OutlineInputBorder()),
             ),
             cupertino: (_, __) => CupertinoTextFieldData(
-              placeholder: "Arama",
-              suffix: Icon(Icons.search)
-            ),
-            onChanged: (value){
+                placeholder: "Arama", suffix: const Icon(Icons.search)),
+            onChanged: (value) {
               currFilter = value;
-              gameGet.filterGameList(currFilter, selectedGameType, selectedGameProvince);
+              gameGet.filterGameList(
+                  currFilter, selectedGameType, selectedGameProvince);
             },
           ),
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 12,vertical: 12),
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
           child: IntrinsicHeight(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Expanded(
-                  child: PlatformWidget(
-                    material: (_,__) =>DropdownButton<String?>(
-                      hint: Text("Oyun lokasyonu"),
-                      icon: Icon(Icons.location_on, color: CustomThemeData.accentColor,),
-                      isExpanded: true,
-                      value: selectedGameProvince,
-                      onChanged: (String? gameProvince){
-                        setState(() {
-                          selectedGameProvince = gameProvince!;
-                          gameGet.filterGameList(currFilter, selectedGameType, selectedGameProvince);
-                        });
-                      },
-                      items: gameProvinceList.map((e) => DropdownMenuItem(child: Text(e),value: e,)).toList(),
+                    child: PlatformWidget(
+                  material: (_, __) => DropdownButton<String?>(
+                    hint: const Text("Oyun lokasyonu"),
+                    icon: Icon(
+                      Icons.location_on,
+                      color: CustomThemeData.accentColor,
                     ),
-                    cupertino: (_,__) => GestureDetector(
+                    isExpanded: true,
+                    value: selectedGameProvince,
+                    onChanged: (String? gameProvince) {
+                      setState(() {
+                        selectedGameProvince = gameProvince!;
+                        gameGet.filterGameList(
+                            currFilter, selectedGameType, selectedGameProvince);
+                      });
+                    },
+                    items: gameProvinceList
+                        .map((e) => DropdownMenuItem(
+                              child: Text(e),
+                              value: e,
+                            ))
+                        .toList(),
+                  ),
+                  cupertino: (_, __) => GestureDetector(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -150,28 +162,32 @@ class _GameScreenFilterState extends State<GameScreenFilter> {
                             children: [
                               Material(
                                 child: Container(
-                                  color: Theme.of(context).scaffoldBackgroundColor,
+                                  color:
+                                      Theme.of(context).scaffoldBackgroundColor,
                                   child: PlatformText(
-                                    selectedGameProvince == null ? "Oyun Lokasyonu" : selectedGameProvince!,
+                                    selectedGameProvince == null
+                                        ? "Oyun Lokasyonu"
+                                        : selectedGameProvince!,
                                   ),
                                 ),
                               ),
-                              Icon(Icons.location_on, color: CustomThemeData.accentColor,)
+                              Icon(
+                                Icons.location_on,
+                                color: CustomThemeData.accentColor,
+                              )
                             ],
                           ),
-                          Divider(),
+                          const Divider(),
                         ],
                       ),
-                      onTap: () => cupertinoProvienceSelector()
-                    ),
-                  )
-                ),
-                VerticalDivider(),
+                      onTap: () => cupertinoProvienceSelector()),
+                )),
+                const VerticalDivider(),
                 Expanded(
                   child: PlatformWidget(
                     material: (_, __) => DropdownButton<GameType?>(
                       isExpanded: true,
-                      hint: Text("Oyun türü"),
+                      hint: const Text("Oyun türü"),
                       icon: Icon(
                         Icons.extension,
                         color: CustomThemeData.primaryColor,
@@ -180,23 +196,26 @@ class _GameScreenFilterState extends State<GameScreenFilter> {
                       onChanged: (GameType? gameType) {
                         setState(() {
                           selectedGameType = gameType!;
-                          gameGet.filterGameList(currFilter, selectedGameType, selectedGameProvince);
+                          gameGet.filterGameList(currFilter, selectedGameType,
+                              selectedGameProvince);
                         });
                       },
-                      items: gameTypeList.map(
+                      items: gameTypeList
+                          .map(
                             (e) => DropdownMenuItem(
-                          child: Text(e == GameType.frp
-                              ? "FRP"
-                              : e == GameType.boardGame
-                              ? "Kutu oyunu"
-                              : e == GameType.tcg
-                              ? "TCG"
-                              : "Hepsi"),
-                          value: e,
-                        ),
-                      ).toList(),
+                              child: Text(e == GameType.frp
+                                  ? "FRP"
+                                  : e == GameType.boardGame
+                                      ? "Kutu oyunu"
+                                      : e == GameType.tcg
+                                          ? "TCG"
+                                          : "Hepsi"),
+                              value: e,
+                            ),
+                          )
+                          .toList(),
                     ),
-                    cupertino: (_,__) => GestureDetector(
+                    cupertino: (_, __) => GestureDetector(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -205,19 +224,19 @@ class _GameScreenFilterState extends State<GameScreenFilter> {
                               children: [
                                 Material(
                                   child: Container(
-                                    color: Theme.of(context).scaffoldBackgroundColor,
-                                    child: PlatformText(
-                                        selectedGameType == null ?
-                                        "Oyun Türü"
-                                            :
-                                        selectedGameType == GameType.frp
+                                    color: Theme.of(context)
+                                        .scaffoldBackgroundColor,
+                                    child: PlatformText(selectedGameType == null
+                                        ? "Oyun Türü"
+                                        : selectedGameType == GameType.frp
                                             ? "FRP"
-                                            : selectedGameType == GameType.boardGame
-                                            ? "Kutu oyunu"
-                                            : selectedGameType == GameType.tcg
-                                            ? "TCG"
-                                            : "Hepsi"
-                                    ),
+                                            : selectedGameType ==
+                                                    GameType.boardGame
+                                                ? "Kutu oyunu"
+                                                : selectedGameType ==
+                                                        GameType.tcg
+                                                    ? "TCG"
+                                                    : "Hepsi"),
                                   ),
                                 ),
                                 Icon(
@@ -226,11 +245,10 @@ class _GameScreenFilterState extends State<GameScreenFilter> {
                                 )
                               ],
                             ),
-                            Divider(),
+                            const Divider(),
                           ],
                         ),
-                      onTap: () => cupertinoGameTypeSelector(context)
-                    ),
+                        onTap: () => cupertinoGameTypeSelector(context)),
                   ),
                 )
               ],

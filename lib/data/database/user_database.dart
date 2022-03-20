@@ -1,11 +1,8 @@
-import 'dart:convert';
-
 import 'package:findgamemates/model/app_user.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 
-class UserDatabase extends GetxService{
-
+class UserDatabase extends GetxService {
   late Box userBox;
 
   @override
@@ -14,16 +11,15 @@ class UserDatabase extends GetxService{
     super.onInit();
   }
 
-  AppUser? getUser(){
+  AppUser? getUser() {
     return userBox.get("loggedInUser", defaultValue: null);
   }
 
-  void saveUser(AppUser? user){
+  void saveUser(AppUser? user) {
     userBox.put("loggedInUser", user);
   }
 
-  void deleteUser(){
+  void deleteUser() {
     userBox.delete("loggedInUser");
   }
-
 }

@@ -1,8 +1,4 @@
-import 'package:findgamemates/data/firebase/firebase_log.dart';
-import 'package:get/get.dart';
-
-class LogUtils{
-
+class LogUtils {
   static const String loginSuccess = "Giriş başarılı";
   static const String loginFailed = "Başarısız giriş denemesi yapıldı";
   static const String registerSuccess = "Kayıt yapıldı";

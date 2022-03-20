@@ -12,10 +12,8 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-
   late AppUser? appUser;
-  UserDatabase userDatabase = Get.put(UserDatabase());
-
+  final UserDatabase userDatabase = Get.put(UserDatabase());
 
   @override
   void initState() {
@@ -33,23 +31,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
           children: [
             Container(
               constraints: BoxConstraints(
-                minHeight: MediaQuery.of(context).size.height*0.4,
-                maxHeight: MediaQuery.of(context).size.height*0.4,
+                minHeight: MediaQuery.of(context).size.height * 0.4,
+                maxHeight: MediaQuery.of(context).size.height * 0.4,
               ),
               decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topRight,
-                  end: Alignment.bottomLeft,
-                  colors: [
-                    CustomThemeData.primaryColor,
-                    CustomThemeData.accentColor
-                  ]
-                ),
-                borderRadius: const BorderRadius.only(
-                  bottomLeft: Radius.elliptical(500,200),
-                  bottomRight: Radius.elliptical(500,200)
-                )
-              ),
+                  gradient: LinearGradient(
+                      begin: Alignment.topRight,
+                      end: Alignment.bottomLeft,
+                      colors: [
+                        CustomThemeData.primaryColor,
+                        CustomThemeData.accentColor
+                      ]),
+                  borderRadius: const BorderRadius.only(
+                      bottomLeft: Radius.elliptical(500, 200),
+                      bottomRight: Radius.elliptical(500, 200))),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
@@ -57,10 +52,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     alignment: Alignment.center,
                     child: const Text(
                       "Profil Ekranı",
-                      style: TextStyle(
-                        fontSize: 30,
-                        color: Colors.white
-                      ),
+                      style: TextStyle(fontSize: 30, color: Colors.white),
                     ),
                   ),
                   CircleAvatar(
@@ -77,8 +69,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
             Container(
               constraints: BoxConstraints(
-                minHeight: MediaQuery.of(context).size.height*0.4,
-                maxHeight: MediaQuery.of(context).size.height*0.4,
+                minHeight: MediaQuery.of(context).size.height * 0.4,
+                maxHeight: MediaQuery.of(context).size.height * 0.4,
               ),
               child: Column(
                 children: [
@@ -86,16 +78,27 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     padding: const EdgeInsets.only(top: 20),
                     child: Column(
                       children: [
-                        Text("Kullanıcı Adı", style: TextStyle(fontWeight: FontWeight.bold),),
+                        const Text(
+                          "Kullanıcı Adı",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
                         Padding(
                           padding: const EdgeInsets.only(left: 50, right: 50),
-                          child: Divider(thickness: 2, color: CustomThemeData.primaryColor,),
+                          child: Divider(
+                            thickness: 2,
+                            color: CustomThemeData.primaryColor,
+                          ),
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(Icons.person, color: CustomThemeData.primaryColor,),
-                            SizedBox(width: 10,),
+                            Icon(
+                              Icons.person,
+                              color: CustomThemeData.primaryColor,
+                            ),
+                            const SizedBox(
+                              width: 10,
+                            ),
                             Text(appUser!.displayName!)
                           ],
                         )
@@ -106,16 +109,27 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     padding: const EdgeInsets.only(top: 20),
                     child: Column(
                       children: [
-                        Text("Mail Adres", style: TextStyle(fontWeight: FontWeight.bold),),
+                        const Text(
+                          "Mail Adres",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
                         Padding(
                           padding: const EdgeInsets.only(left: 50, right: 50),
-                          child: Divider(thickness: 2, color: CustomThemeData.primaryColor,),
+                          child: Divider(
+                            thickness: 2,
+                            color: CustomThemeData.primaryColor,
+                          ),
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(Icons.mail, color: CustomThemeData.primaryColor,),
-                            SizedBox(width: 10,),
+                            Icon(
+                              Icons.mail,
+                              color: CustomThemeData.primaryColor,
+                            ),
+                            const SizedBox(
+                              width: 10,
+                            ),
                             Text(appUser!.email!)
                           ],
                         )

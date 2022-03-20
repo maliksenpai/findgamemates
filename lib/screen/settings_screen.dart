@@ -4,7 +4,6 @@ import 'package:findgamemates/get/user_get.dart';
 import 'package:findgamemates/screen/login_screen.dart';
 import 'package:findgamemates/theme_data.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:get/get.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -15,7 +14,6 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
-
   SettingsDatabase settingsDatabase = Get.put(SettingsDatabase());
   UserGet userGet = Get.put(UserGet());
 
@@ -33,7 +31,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 children: const [
                   Text(
                     "Ayarlar",
-                    style: TextStyle(fontWeight: FontWeight.w800,fontSize: 22),
+                    style: TextStyle(fontWeight: FontWeight.w800, fontSize: 22),
                   ),
                   Divider(
                     thickness: 2,
@@ -44,13 +42,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
           ),
           ListTile(
-            title: Text("Karanlık Mod"),
+            title: const Text("Karanlık Mod"),
             trailing: DayNightSwitcher(
               isDarkModeEnabled: settingsDatabase.isDarkMode(),
-              onStateChanged: (bool bool){
+              onStateChanged: (bool bool) {
                 setState(() {
                   settingsDatabase.changeTheme(bool);
-                  Get.changeTheme(bool ? CustomThemeData().darkTheme : CustomThemeData().lightTheme);
+                  Get.changeTheme(bool
+                      ? CustomThemeData().darkTheme
+                      : CustomThemeData().lightTheme);
                 });
               },
             ),
@@ -66,7 +66,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
                 onPressed: () async {
                   //todo:refactor dialog like game detail input
-                    Get.dialog(
+                  Get.dialog(
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: const [
@@ -74,15 +74,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           Text("Çıkış Yapılıyor")
                         ],
                       ),
-                      barrierDismissible: false
-                    );
-                    bool logout = await userGet.logoutUser();
-                    Navigator.of(Get.overlayContext!, rootNavigator: true).pop();
-                    if(logout){
-                      Get.off(const LoginScreen());
-                    }else{
-                      Get.snackbar("İşlem Başarısız", "Çıkış işlemi başarısız oldu");
-                    }
+                      barrierDismissible: false);
+                  bool logout = await userGet.logoutUser();
+                  Navigator.of(Get.overlayContext!, rootNavigator: true).pop();
+                  if (logout) {
+                    Get.off(const LoginScreen());
+                  } else {
+                    Get.snackbar(
+                        "İşlem Başarısız", "Çıkış işlemi başarısız oldu");
+                  }
                 },
               ),
             ),

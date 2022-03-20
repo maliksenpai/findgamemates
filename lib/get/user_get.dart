@@ -6,26 +6,26 @@ import 'package:findgamemates/model/login_response.dart';
 import 'package:findgamemates/utils/log_utils.dart';
 import 'package:get/get.dart';
 
-class UserGet extends GetxController{
+class UserGet extends GetxController {
+  final FirebaseUser firebaseUser = Get.put(FirebaseUser());
+  final FirebaseLog firebaseLog = Get.put(FirebaseLog());
+  final UserDatabase userDatabase = Get.put(UserDatabase());
 
-  FirebaseUser firebaseUser = Get.put(FirebaseUser());
-  FirebaseLog firebaseLog = Get.put(FirebaseLog());
-  UserDatabase userDatabase = Get.put(UserDatabase());
-
-  Future<LoginResponse> loginUser(LoginRequest loginRequest) async{
+  Future<LoginResponse> loginUser(LoginRequest loginRequest) async {
     LoginResponse result = await firebaseUser.loginUser(loginRequest);
-    if(result == LoginResponse.successful){
+    if (result == LoginResponse.successful) {
       firebaseLog.writeLog(LogUtils.loginSuccess);
-    }else{
+    } else {
       firebaseLog.writeLog(LogUtils.loginFailed);
     }
     return result;
   }
 
-  Future<bool> logoutUser() async{
+  Future<bool> logoutUser() async {
     bool logout = await firebaseUser.logoutUser();
-    if(logout){
-      firebaseLog.writeLog(userDatabase.getUser()!.uid! + " - " + LogUtils.logoutUser);
+    if (logout) {
+      firebaseLog
+          .writeLog(userDatabase.getUser()!.uid! + " - " + LogUtils.logoutUser);
       userDatabase.deleteUser();
     }
     return logout;
@@ -33,13 +33,12 @@ class UserGet extends GetxController{
 
   Future<bool> setUsername(String username) async {
     bool isSuccess = await firebaseUser.setUsername(username);
-    if(isSuccess){
+    if (isSuccess) {
       var user = userDatabase.getUser();
       user!.displayName = username;
       userDatabase.saveUser(user);
       await firebaseLog.writeLog(LogUtils.registerSuccess);
     }
     return isSuccess;
-
   }
 }

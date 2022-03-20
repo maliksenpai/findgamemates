@@ -4,22 +4,19 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class CommentWidget extends StatefulWidget {
+  final GameComment gameComment;
 
-  GameComment gameComment;
-
-  CommentWidget({Key? key, required this.gameComment}) : super(key: key);
+  const CommentWidget({Key? key, required this.gameComment}) : super(key: key);
 
   @override
   _CommentWidgetState createState() => _CommentWidgetState();
 }
 
 class _CommentWidgetState extends State<CommentWidget> {
-
   late String date;
 
   @override
   void initState() {
-
     super.initState();
   }
 
@@ -29,7 +26,7 @@ class _CommentWidgetState extends State<CommentWidget> {
       shadowColor: CustomThemeData.cardColor,
       elevation: 8,
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 16,horizontal: 8),
+        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
@@ -38,21 +35,22 @@ class _CommentWidgetState extends State<CommentWidget> {
               alignment: Alignment.centerLeft,
               child: Text(
                 widget.gameComment.senderName,
-                style: TextStyle(fontWeight: FontWeight.bold, color: Theme.of(context).primaryColor),
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Theme.of(context).primaryColor),
               ),
             ),
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 12,vertical: 4),
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
               alignment: Alignment.centerLeft,
-              child: Text(
-                widget.gameComment.comment
-              ),
+              child: Text(widget.gameComment.comment),
             ),
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 12,vertical: 4),
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
               alignment: Alignment.bottomRight,
               child: Text(
-                DateFormat("dd/MM/yyyy HH:mm").format(DateTime.parse(widget.gameComment.sendTime).toLocal()),
+                DateFormat("dd/MM/yyyy HH:mm").format(
+                    DateTime.parse(widget.gameComment.sendTime).toLocal()),
                 style: const TextStyle(color: Colors.grey),
               ),
             )

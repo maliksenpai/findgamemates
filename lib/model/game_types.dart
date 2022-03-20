@@ -1,4 +1,4 @@
-enum GameType{
+enum GameType {
   all,
   frp,
   boardGame,

@@ -7,7 +7,6 @@ import 'package:findgamemates/screen/settings_screen.dart';
 import 'package:findgamemates/theme_data.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/scheduler/ticker.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:get/get.dart';
 
@@ -78,7 +77,13 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
             onTap: (i) => setState(() {
               iosTabBarIndex = i;
             }),
-            items: const [BottomNavigationBarItem(icon: Icon(Icons.settings), label: "Ayarlar"), BottomNavigationBarItem(icon: Icon(Icons.home), label: "Ana Ekran"), BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profil")],
+            items: const [
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.settings), label: "Ayarlar"),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.home), label: "Ana Ekran"),
+              BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profil")
+            ],
           ),
           tabBuilder: (context, index) {
             return iosTabBarIndex == 0
@@ -104,12 +109,14 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
           return PlatformAlertDialog(
             title: Text(
               "Eksik Kullanıcı Adı",
-              style: TextStyle(fontWeight: FontWeight.bold, color: Theme.of(context).primaryColor),
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Theme.of(context).primaryColor),
             ),
             content: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 Image.asset(
@@ -117,17 +124,18 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                   width: MediaQuery.of(context).size.width * 0.4,
                   height: MediaQuery.of(context).size.height * 0.2,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
-                const Text("Kullanıcı adınız henüz tanımlanmamış, lütfen kullanıcı adınızı giriniz"),
-                SizedBox(
+                const Text(
+                    "Kullanıcı adınız henüz tanımlanmamış, lütfen kullanıcı adınızı giriniz"),
+                const SizedBox(
                   height: 20,
                 ),
                 PlatformTextField(
                   controller: controller,
                   material: (_, __) => MaterialTextFieldData(
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       labelText: "Kullanıcı Adı",
                     ),
                   ),
@@ -141,13 +149,13 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                       : isErrorTaken
                           ? "Bu kullanıcı adı zaten kullanılıyor"
                           : "",
-                  style: TextStyle(color: Colors.red),
+                  style: const TextStyle(color: Colors.red),
                 ),
                 const SizedBox(
                   height: 20,
                 ),
                 isSuccess
-                    ? Text(
+                    ? const Text(
                         "İşlem başarılı",
                         style: TextStyle(color: Colors.green),
                       )
@@ -171,9 +179,10 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                         isErrorTaken = false;
                         isSuccess = true;
                       });
-                      Future.delayed(Duration(seconds: 2), () {
+                      Future.delayed(const Duration(seconds: 2), () {
                         isLoading = false;
-                        Navigator.of(Get.overlayContext!, rootNavigator: true).pop();
+                        Navigator.of(Get.overlayContext!, rootNavigator: true)
+                            .pop();
                       });
                     } else {
                       setState(() {

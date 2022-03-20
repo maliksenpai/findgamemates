@@ -10,14 +10,15 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-
-  TextEditingController textEditingController = TextEditingController();
-  FirebaseUser firebaseUser = Get.put(FirebaseUser());
+  final TextEditingController textEditingController = TextEditingController();
+  final FirebaseUser firebaseUser = Get.put(FirebaseUser());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Kayıt Ekranı"),),
+      appBar: AppBar(
+        title: const Text("Kayıt Ekranı"),
+      ),
       body: SafeArea(
         child: Center(
           child: Column(
@@ -26,16 +27,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
               TextField(
                 controller: textEditingController,
                 decoration: InputDecoration(
-                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20)),
                   labelText: "Doğrulama Kodu",
                   counterText: "",
                 ),
                 maxLength: 12,
               ),
               ElevatedButton(
-                child: Text("Gönder"),
-                onPressed: () => attempMailVerification()
-              )
+                  child: const Text("Gönder"),
+                  onPressed: () => attempMailVerification())
             ],
           ),
         ),
@@ -43,9 +44,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
-
   Future<void> attempMailVerification() async {
-    if(textEditingController != null || textEditingController.text.isNotEmpty ){
+    if (textEditingController.text.isNotEmpty) {
       //var isSuccessful = firebaseUser.sendMailVerification(textEditingController.text);
 
     }

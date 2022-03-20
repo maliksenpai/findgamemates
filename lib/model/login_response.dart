@@ -1,5 +1,4 @@
-enum LoginResponse{
-
+enum LoginResponse {
   successful,
   weakPassword,
   wrongPassword,
@@ -7,5 +6,4 @@ enum LoginResponse{
   userNotFound,
   emailNotVerified,
   none
-
 }

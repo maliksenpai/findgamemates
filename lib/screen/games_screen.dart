@@ -1,12 +1,7 @@
 import 'package:findgamemates/get/game_get.dart';
-import 'package:findgamemates/model/game_post.dart';
-import 'package:findgamemates/model/game_types.dart';
 import 'package:findgamemates/screen/create_game_screen.dart';
-import 'package:findgamemates/screen/game_detail_screen.dart';
 import 'package:findgamemates/view/game_screen_filter.dart';
 import 'package:findgamemates/view/game_screen_list.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -18,7 +13,7 @@ class GamesScreen extends StatefulWidget {
 }
 
 class _GamesScreenState extends State<GamesScreen> {
-  GameGet gameGet = Get.put(GameGet());
+  final GameGet gameGet = Get.put(GameGet());
 
   @override
   void initState() {
@@ -31,7 +26,9 @@ class _GamesScreenState extends State<GamesScreen> {
       body: Column(
         children: const [
           GameScreenFilter(),
-          Expanded(child: GameScreenList(),)
+          Expanded(
+            child: GameScreenList(),
+          )
         ],
       ),
       floatingActionButton: FloatingActionButton(

@@ -5,19 +5,17 @@ import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:get/get.dart';
 
 class GameDetailInput extends StatefulWidget {
+  final String postId;
 
-  String postId;
-
-  GameDetailInput({Key? key, required this.postId}) : super(key: key);
+  const GameDetailInput({Key? key, required this.postId}) : super(key: key);
 
   @override
   _GameDetailInputState createState() => _GameDetailInputState();
 }
 
 class _GameDetailInputState extends State<GameDetailInput> {
-
-  TextEditingController inputController = TextEditingController();
-  GameGet gameGet = Get.put(GameGet());
+  final TextEditingController inputController = TextEditingController();
+  final GameGet gameGet = Get.put(GameGet());
 
   @override
   Widget build(BuildContext context) {
@@ -33,16 +31,16 @@ class _GameDetailInputState extends State<GameDetailInput> {
                 controller: inputController,
                 keyboardType: TextInputType.multiline,
                 maxLines: null,
-                style: TextStyle(color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black),
+                style: TextStyle(
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? Colors.white
+                        : Colors.black),
                 material: (_, __) => MaterialTextFieldData(
                   decoration: const InputDecoration(
-                      hintText: "Yorum",
-                      border: OutlineInputBorder()
-                  ),
+                      hintText: "Yorum", border: OutlineInputBorder()),
                 ),
-                cupertino: (_, __) => CupertinoTextFieldData(
-                  placeholder: "Yorum"
-                ),
+                cupertino: (_, __) =>
+                    CupertinoTextFieldData(placeholder: "Yorum"),
               ),
             ),
           ),
@@ -50,7 +48,7 @@ class _GameDetailInputState extends State<GameDetailInput> {
             flex: 1,
             child: IconButton(
               onPressed: () async {
-                if(!inputController.text.isEmpty){
+                if (inputController.text.isNotEmpty) {
                   Get.defaultDialog(
                       title: "Yükleniyor",
                       content: Row(
@@ -60,20 +58,23 @@ class _GameDetailInputState extends State<GameDetailInput> {
                           Text("Yorum Ekleniyor")
                         ],
                       ),
-                      barrierDismissible: false
-                  );
-                  GameComment? comment = await gameGet.addComment(widget.postId, inputController.text);
-                  Navigator.of(Get.overlayContext!).pop();
-                  if(comment == null){
+                      barrierDismissible: false);
+                  GameComment? comment = await gameGet.addComment(
+                      widget.postId, inputController.text);
+                  Navigator.of(context, rootNavigator: true).pop();
+                  if (comment == null) {
                     Get.snackbar("İşlem başarısız", "Yorum gönderilemedi");
-                  }else{
+                  } else {
                     inputController.clear();
                   }
-                }else{
+                } else {
                   Get.snackbar("İşlem başarısız", "Yorum boş gönderilemez");
                 }
               },
-              icon: Icon(Icons.send, color: Theme.of(context).primaryColor,),
+              icon: Icon(
+                Icons.send,
+                color: Theme.of(context).primaryColor,
+              ),
             ),
           )
         ],
